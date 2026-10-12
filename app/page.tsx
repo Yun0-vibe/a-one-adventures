@@ -67,8 +67,8 @@ export default function Home() {
               <Star size={13} className="fill-accent text-accent" /> 4.9 rated by 200 plus travellers
             </span>
           </div>
-          <h1 className="mt-6 max-w-[15ch] font-display text-[clamp(42px,7vw,80px)] leading-[1.0] tracking-tight">
-            All Nepal by road. <em className="font-normal italic text-amber-300">Drivers you can call by name.</em>
+          <h1 className="mt-6 max-w-[15ch] font-display text-[clamp(40px,7vw,80px)] leading-[1.0] tracking-tight">
+            Skip the bus. <em className="font-normal italic text-amber-300">See the real Nepal.</em>
           </h1>
           <p className="mt-6 max-w-[54ch] text-lg leading-relaxed text-[#E7EFE8]">
             A-One Adventures is a family run Scorpio service from Pokhara, open for reservation for full All Nepal
