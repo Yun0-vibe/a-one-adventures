@@ -1,4 +1,12 @@
+import type { Metadata } from 'next';
 import { ROUTES } from '@/lib/site';
+
+export const metadata: Metadata = {
+  title: 'Routes & Fares — Pokhara to Muktinath, Mustang, Kathmandu',
+  description:
+    'Jeep routes from Pokhara: Muktinath 168km, Lo Manthang, Ghandruk, Kathmandu, Chitwan, Pathivara. Distances, drive times and 2026 fare guidance.',
+  alternates: { canonical: '/routes' },
+};
 
 export default function Routes() {
   return (

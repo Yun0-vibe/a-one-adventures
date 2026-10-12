@@ -1,4 +1,12 @@
+import type { Metadata } from 'next';
 import { SITE } from '@/lib/site';
+
+export const metadata: Metadata = {
+  title: 'Contact — Call or WhatsApp Your Driver Directly',
+  description:
+    'Contact A-One Adventures Pokhara: call or WhatsApp Ganesh Prasad Subedi on +977 9846020030. Lakeside pickup, 6 AM – 10 PM, 7 days.',
+  alternates: { canonical: '/contact' },
+};
 
 export default function Contact() {
   return (

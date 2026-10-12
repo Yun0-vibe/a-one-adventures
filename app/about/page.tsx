@@ -1,5 +1,13 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { SITE, VEHICLE } from '@/lib/site';
+
+export const metadata: Metadata = {
+  title: 'About Us — Family-Run Scorpio Tours in Pokhara',
+  description:
+    'Meet Ganesh Prasad Subedi, owner-driver of A-One Adventures Pokhara. One Mahindra Scorpio S5+ 2019 4WD, years of Mustang road experience, pilgrim-friendly driving.',
+  alternates: { canonical: '/about' },
+};
 
 export default function About() {
   return (

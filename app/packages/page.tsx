@@ -1,5 +1,13 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { PACKAGES } from '@/lib/site';
+
+export const metadata: Metadata = {
+  title: 'Tour Packages — Muktinath, Mustang, Pathivara, All Nepal',
+  description:
+    'Compare 6 private Scorpio tour packages from Pokhara: Muktinath Darshan 3D, Lower Mustang 4D, Upper Mustang Lo Manthang 6D, Pathivara, All Nepal circuit, day charter. Full-jeep pricing.',
+  alternates: { canonical: '/packages' },
+};
 
 export default function Packages() {
   return (
