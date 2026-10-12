@@ -1,6 +1,8 @@
 'use client';
 import { createContext, useContext, useState, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
+import { Globe, Check } from 'lucide-react';
+import { useState } from 'react';
 import { makeT, type Lang } from '@/lib/t';
 
 type Ctx = { lang: Lang; setLang: (l: Lang) => void; t: ReturnType<typeof makeT>['t']; ta: ReturnType<typeof makeT>['ta'] };
@@ -33,32 +35,42 @@ export function useLang(): Ctx {
   return ctx;
 }
 
-export function LangToggle({ dark }: { dark?: boolean }) {
+export function LangMenu({ dark }: { dark?: boolean }) {
   const { lang, setLang } = useLang();
-  const btn = (active: boolean) =>
-    `rounded-full px-3 py-1.5 transition ${
-      active
-        ? dark
-          ? 'bg-white text-ink shadow-sm'
-          : 'bg-ink text-white shadow-sm'
-        : dark
-          ? 'text-white/70 hover:text-white'
-          : 'text-moss hover:text-ink'
-    }`;
+  const [open, setOpen] = useState(false);
   return (
-    <div
-      className={`flex items-center gap-0.5 rounded-full p-1 text-[13px] font-bold ${
-        dark ? 'bg-white/10 text-white' : 'border border-line bg-[#F2EEE1] text-ink'
-      }`}
-      role="group"
-      aria-label="Language"
-    >
-      <button onClick={() => setLang('en')} className={btn(lang === 'en')} aria-pressed={lang === 'en'}>
-        EN
+    <div className="relative" onMouseLeave={() => setOpen(false)}>
+      <button
+        onClick={() => setOpen(!open)}
+        aria-label="Language / भाषा"
+        aria-expanded={open}
+        className={`flex h-10 w-10 items-center justify-center rounded-full border transition ${
+          dark
+            ? 'border-white/25 bg-white/10 text-white hover:bg-white/20'
+            : 'border-line bg-white text-ink hover:border-ink'
+        }`}
+      >
+        <Globe size={17} />
       </button>
-      <button onClick={() => setLang('ne')} className={btn(lang === 'ne')} aria-pressed={lang === 'ne'}>
-        नेपाली
-      </button>
+      {open ? (
+        <div className="absolute right-0 top-12 z-50 w-44 overflow-hidden rounded-2xl border border-line bg-white p-1.5 text-ink shadow-[0_18px_40px_rgba(26,46,34,0.2)]">
+          {(['en', 'ne'] as Lang[]).map((l) => (
+            <button
+              key={l}
+              onClick={() => {
+                setLang(l);
+                setOpen(false);
+              }}
+              className={`flex w-full items-center justify-between rounded-xl px-3.5 py-2.5 text-sm font-bold transition ${
+                lang === l ? 'bg-cream text-brand' : 'hover:bg-cream'
+              }`}
+            >
+              {l === 'en' ? 'English' : 'नेपाली'}
+              {lang === l ? <Check size={15} /> : null}
+            </button>
+          ))}
+        </div>
+      ) : null}
     </div>
   );
 }
