@@ -44,18 +44,14 @@ export default function Header() {
                 {t(l.key)}
               </Link>
             ))}
-            <div className="ml-1.5 flex items-center gap-2">
-              <LangToggle />
-              <Link
-                href="/contact"
-                className="rounded-full bg-accent px-5 py-3 text-[14.5px] font-bold text-white shadow-sm transition hover:brightness-95"
-              >
-                {t('nav.reserve')}
-              </Link>
-            </div>
+            <Link
+              href="/contact"
+              className="rounded-full bg-accent px-5 py-3 text-[14.5px] font-bold text-white shadow-sm transition hover:brightness-95"
+            >
+              {t('nav.reserve')}
+            </Link>
           </nav>
-          <div className="flex items-center gap-2 lg:hidden">
-            <LangToggle />
+          <div className="flex items-center lg:hidden">
             <button
               className="flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-white"
               onClick={() => setOpen(!open)}
@@ -87,6 +83,10 @@ export default function Header() {
             >
               {t('nav.builder')} <ChevronRight size={16} className="opacity-70" />
             </Link>
+            <div className="mt-2 flex items-center justify-between rounded-xl bg-white px-4 py-2.5">
+              <span className="text-sm font-bold text-moss">Language / भाषा</span>
+              <LangToggle />
+            </div>
             <div className="mt-2 grid grid-cols-2 gap-2">
               <a
                 href={SITE.phoneHref}

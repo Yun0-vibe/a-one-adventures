@@ -3,6 +3,7 @@ import { Phone, Mail, MapPin, Clock } from 'lucide-react';
 import { SITE, VEHICLE } from '@/lib/site';
 import { getLang, makeT } from '@/lib/lang';
 import { NE_PACKAGES } from '@/lib/ne-data';
+import { LangToggle } from '@/components/LangProvider';
 
 const TOP_LINKS: { slug: string; href: string }[] = [
   { slug: 'muktinath-darshan', href: '/packages/muktinath-darshan' },
@@ -68,9 +69,12 @@ export default function Footer() {
         </div>
       </div>
       <div className="border-t border-white/10">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-2 px-5 py-4 text-[13px] text-white/60">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-5 py-4 text-[13px] text-white/60">
           <span>© {new Date().getFullYear()} A-One Adventures, Pokhara. {t('foot.rights')}</span>
-          <span>{t('foot.pay')}</span>
+          <span className="flex items-center gap-3">
+            <span>{t('foot.pay')}</span>
+            <LangToggle dark />
+          </span>
         </div>
       </div>
     </footer>
