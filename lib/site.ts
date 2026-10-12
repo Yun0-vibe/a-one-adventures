@@ -1,6 +1,6 @@
 export const SITE = {
   brand: 'A-One Adventures',
-  tagline: 'Pokhara based 4x4 jeep tours across Nepal',
+  tagline: 'Pokhara based 4x4 Scorpio tours across Nepal',
   phone: '+977 9846020030',
   phoneHref: 'tel:+9779846020030',
   location: 'Lakeside, Pokhara, Nepal',
@@ -38,7 +38,7 @@ export const PACKAGES: Pkg[] = [
     days: '3 Days',
     nights: '2 Nights',
     price: 'NPR 55,000 to 65,000',
-    priceNote: 'full jeep (up to 7 guests), fuel and driver included',
+    priceNote: 'full Scorpio (up to 7 guests), fuel and driver included',
     tag: 'Most Reserved',
     image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1600&auto=format&fit=crop',
     summary:
@@ -49,7 +49,7 @@ export const PACKAGES: Pkg[] = [
       { day: 'Day 2', title: 'Jomsom to Kagbeni to Muktinath', detail: 'Temple darshan at 108 taps plus Jwala Mai. Dhumba Lake and Jharkot monastery. Overnight Jomsom or Muktinath.' },
       { day: 'Day 3', title: 'Jomsom to Pokhara', detail: 'Descend the Kali Gandaki gorge, Marpha stop for apple pie. Arrive Pokhara by evening.' },
     ],
-    includes: ['4x4 jeep plus mountain driver', 'Fuel, tolls and parking', 'Hotel pickup and drop', 'ACAP permit assistance', 'First aid plus oxygen backup'],
+    includes: ['4x4 Scorpio plus mountain driver', 'Fuel, tolls and parking', 'Hotel pickup and drop', 'ACAP permit assistance', 'First aid plus oxygen backup'],
   },
   {
     slug: 'lower-mustang-explorer',
@@ -57,7 +57,7 @@ export const PACKAGES: Pkg[] = [
     days: '4 Days',
     nights: '3 Nights',
     price: 'NPR 68,000 to 85,000',
-    priceNote: 'full jeep, flexible stops',
+    priceNote: 'full Scorpio, flexible stops',
     tag: 'Family Favorite',
     image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1600&auto=format&fit=crop',
     summary:
@@ -69,7 +69,7 @@ export const PACKAGES: Pkg[] = [
       { day: 'Day 3', title: 'Muktinath full day', detail: 'Unhurried darshan plus Kagbeni red monastery plus Dhumba Lake. Overnight Jomsom.' },
       { day: 'Day 4', title: 'Return to Pokhara', detail: 'Souvenir stop in Marpha, lunch at Beni. Evening lakeside drop.' },
     ],
-    includes: ['4x4 jeep and driver', 'Fuel and all road taxes', 'Daily pickup coordination', 'Sightseeing detours included', 'Driver stay and food covered by us'],
+    includes: ['4x4 Scorpio and driver', 'Fuel and all road taxes', 'Daily pickup coordination', 'Sightseeing detours included', 'Driver stay and food covered by us'],
   },
   {
     slug: 'upper-mustang-lo-manthang',
@@ -106,10 +106,10 @@ export const PACKAGES: Pkg[] = [
     itinerary: [
       { day: 'Day 1', title: 'Pokhara to Kathmandu / Birtamode', detail: 'Highway drive with meal halts. Overnight halt.' },
       { day: 'Day 2', title: 'To Taplejung / Suketar', detail: 'Climb via Ilam, Kanyam tea estate photo stops.' },
-      { day: 'Day 3', title: 'Pathivara darshan', detail: 'Jeep to Kaflepati plus 2 to 3 hr walk to temple (pony and palanquin options).' },
+      { day: 'Day 3', title: 'Pathivara darshan', detail: 'Scorpio to Kaflepati plus 2 to 3 hr walk to temple (pony and palanquin options).' },
       { day: 'Day 4 to 6', title: 'Return to Pokhara', detail: 'Same route back with flexible night halts.' },
     ],
-    includes: ['Long haul jeep plus driver rotation', 'Route and hotel planning', 'Temple timing guidance', 'Full fuel and tolls', 'Phone support anytime'],
+    includes: ['Long haul Scorpio plus driver rotation', 'Route and hotel planning', 'Temple timing guidance', 'Full fuel and tolls', 'Phone support anytime'],
   },
   {
     slug: 'all-nepal-tour',
@@ -121,15 +121,15 @@ export const PACKAGES: Pkg[] = [
     tag: 'Best Value',
     image: 'https://images.unsplash.com/photo-1558799401-1dcba79834c2?q=80&w=1600&auto=format&fit=crop',
     summary:
-      'The complete first timer loop: Kathmandu heritage, Manakamana, Pokhara, Muktinath, Chitwan safari and Lumbini. Same team and jeeps throughout, zero bus hassle.',
+      'The complete first timer loop: Kathmandu heritage, Manakamana, Pokhara, Muktinath, Chitwan safari and Lumbini. Same team and Scorpios throughout, zero bus hassle.',
     highlights: ['Kathmandu Durbar plus Swayambhu', 'Pokhara lakeside plus Sarangkot', 'Muktinath or Jomsom leg', 'Chitwan safari plus Lumbini birthplace'],
     itinerary: [
       { day: 'Day 1 to 2', title: 'Kathmandu plus Manakamana', detail: 'Pashupati, Boudha, Bhaktapur. Cable car option to Manakamana.' },
       { day: 'Day 3 to 5', title: 'Pokhara plus Mustang leg', detail: 'Lakeside, Davis Falls, then Muktinath 2 night loop.' },
-      { day: 'Day 6 to 7', title: 'Chitwan safari', detail: 'Tharu culture, jeep plus canoe safari, sunset over Rapti.' },
+      { day: 'Day 6 to 7', title: 'Chitwan safari', detail: 'Tharu culture, jungle safari plus canoe ride, sunset over Rapti.' },
       { day: 'Day 8 to 10', title: 'Lumbini to return', detail: 'Maya Devi temple, Ashoka pillar. Drop Kathmandu or Pokhara.' },
     ],
-    includes: ['Single jeep throughout', 'Same trusted driver', 'Hotel booking help', 'Permit handling', 'Flexible day wise plan'],
+    includes: ['Single Scorpio throughout', 'Same trusted driver', 'Hotel booking help', 'Permit handling', 'Flexible day wise plan'],
   },
   {
     slug: 'pokhara-day-charter',

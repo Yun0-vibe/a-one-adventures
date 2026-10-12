@@ -139,10 +139,10 @@ export default function ContactForm() {
       </div>
       {length ? (
         <div className="w-fit rounded-full bg-accentsoft px-4 py-2 text-sm font-bold text-ink">
-          Trip length: {length} · about {Math.ceil(Number(f.persons || 1) / 7)} jeep{Number(f.persons) > 7 ? 's' : ''} needed
+          Trip length: {length} · about {Math.ceil(Number(f.persons || 1) / 7)} Scorpio{Number(f.persons) > 7 ? 's' : ''} needed
         </div>
       ) : (
-        <p className="m-0 text-[13px] text-moss">Pick both dates and we show your trip length plus jeeps needed (7 seats per jeep).</p>
+        <p className="m-0 text-[13px] text-moss">Pick both dates and we show your trip length plus Scorpios needed (7 seats per Scorpio).</p>
       )}
       <label className={labelCls}>
         Pickup point

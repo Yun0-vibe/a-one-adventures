@@ -4,7 +4,7 @@ import { ROUTES } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Routes and Fares, Pokhara to Muktinath, Mustang, Kathmandu',
   description:
-    'Jeep routes from Pokhara: Muktinath 168km, Lo Manthang, Ghandruk, Kathmandu, Chitwan, Pathivara. Distances, drive times and 2026 fare guidance.',
+    'Scorpio routes from Pokhara: Muktinath 168km, Lo Manthang, Ghandruk, Kathmandu, Chitwan, Pathivara. Distances, drive times and 2026 fare guidance.',
   alternates: { canonical: '/routes' },
 };
 
@@ -13,7 +13,7 @@ export default function Routes() {
     <section className="mx-auto max-w-6xl px-5 py-16">
       <div className="text-xs font-extrabold uppercase tracking-[0.16em] text-brand2">Routes and fares</div>
       <h1 className="mt-2 font-display text-[clamp(28px,4vw,42px)] leading-tight tracking-tight">
-        Every road our jeep knows by heart.
+        Every road our Scorpio knows by heart.
       </h1>
       <p className="mt-2 max-w-[64ch] text-[16.5px] text-moss">
         Indicative 2026 charter fares (fuel plus driver included). Round trip packages on the Packages page are better
@@ -57,7 +57,7 @@ export default function Routes() {
           <div className="p-5">
             <h3 className="font-display text-[22px]">Road reality check</h3>
             <p className="text-[15px] text-moss">
-              Beni to Jomsom is part gravel mountain road. Our 4WD handles it weekly, but expect a bumpy, beautiful
+              Beni to Jomsom is part gravel mountain road. Our Scorpios handle it weekly, but expect a bumpy, beautiful
               adventure, not an expressway. We drive slow where it matters and stop where it counts: Rupse falls,
               Marpha, Dhumba Lake.
             </p>

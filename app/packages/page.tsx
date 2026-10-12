@@ -5,7 +5,7 @@ import { PACKAGES } from '@/lib/site';
 export const metadata: Metadata = {
   title: 'Tour Packages, Muktinath, Mustang, Pathivara, All Nepal',
   description:
-    'Compare 6 jeep tour packages from Pokhara: Muktinath Darshan 3 days, Lower Mustang 4 days, Upper Mustang Lo Manthang 6 days, Pathivara, All Nepal circuit, day charter. Full jeep pricing.',
+    'Compare 6 Scorpio tour packages from Pokhara: Muktinath Darshan 3 days, Lower Mustang 4 days, Upper Mustang Lo Manthang 6 days, Pathivara, All Nepal circuit, day charter. Full Scorpio pricing.',
   alternates: { canonical: '/packages' },
 };
 
@@ -17,7 +17,7 @@ export default function Packages() {
         Six honest packages. One team that runs them all.
       </h1>
       <p className="mt-2 max-w-[64ch] text-[16.5px] text-moss">
-        All prices are full jeep, not per person. Share with 6 to 7 travellers. Permits (ACAP NPR 3,000, Upper Mustang
+        All prices are full Scorpio, not per person. Share with 6 to 7 travellers. Permits (ACAP NPR 3,000, Upper Mustang
         USD 50 per day) extra at actuals. We arrange them.
       </p>
       <div className="mt-6 grid gap-[18px] md:grid-cols-3">

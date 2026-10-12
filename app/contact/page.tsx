@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Phone, Mail, Clock, MapPin } from 'lucide-react';
 import { Suspense } from 'react';
 import { SITE } from '@/lib/site';
 import ContactForm from './form';
@@ -19,7 +20,7 @@ export default function Contact() {
           Tell us your dates. We handle the road.
         </h1>
         <p className="mt-2 text-[16.5px] text-moss">
-          Fill the enquiry form and we call you back to confirm jeeps, fare and pickup. Led by {SITE.driver}.
+          Fill the enquiry form and we call you back to confirm Scorpios, fare and pickup. Led by {SITE.driver}.
         </p>
       </div>
       <div className="mt-8 grid items-start gap-6 lg:grid-cols-[1.5fr_1fr]">
@@ -30,20 +31,26 @@ export default function Contact() {
           <div className="rounded-3xl bg-ink p-7 text-[#DCE7DE]">
             <div className="text-xs font-extrabold uppercase tracking-[0.16em] text-amber-300">Fastest reply</div>
             <h3 className="mt-1 font-display text-2xl text-white">{SITE.driver}</h3>
-            <p className="my-2 text-xl font-extrabold text-white">
-              <a href={SITE.phoneHref}>{SITE.phone}</a>
+            <a href={SITE.phoneHref} className="my-2 flex items-center gap-2.5 text-xl font-extrabold text-white hover:text-amber-300">
+              <Phone size={20} /> {SITE.phone}
+            </a>
+            <p className="flex items-start gap-2.5 text-[14.5px]">
+              <MapPin size={16} className="mt-1 shrink-0" /> {SITE.location}. Open 6 AM to 10 PM Nepal time, 7 days.
             </p>
-            <p className="text-[14.5px]">
-              {SITE.location}. Open 6 AM to 10 PM Nepal time, 7 days. Email: {SITE.email}
+            <p className="flex items-center gap-2.5 text-[14.5px]">
+              <Mail size={16} className="shrink-0" /> {SITE.email}
             </p>
-            <div className="mt-3 flex flex-wrap gap-2.5">
-              <a href={SITE.phoneHref} className="rounded-full bg-white px-5 py-3 text-[15px] font-bold text-ink">
-                Call now
+            <div className="mt-4 flex flex-wrap gap-2.5">
+              <a href={SITE.phoneHref} className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-[15px] font-bold text-ink">
+                <Phone size={16} /> Call now
               </a>
-              <a href={`mailto:${SITE.email}`} className="rounded-full border border-white/30 px-5 py-3 text-[15px] font-bold text-white">
-                Email us
+              <a href={`mailto:${SITE.email}`} className="inline-flex items-center gap-2 rounded-full border border-white/30 px-5 py-3 text-[15px] font-bold text-white">
+                <Mail size={16} /> Email us
               </a>
             </div>
+            <p className="mb-0 mt-4 flex items-center gap-2.5 text-[13px] text-white/60">
+              <Clock size={14} className="shrink-0" /> Average callback time: under 2 hours
+            </p>
           </div>
           <div className="rounded-3xl border border-line bg-white p-7">
             <h3 className="font-display text-[22px]">Find us</h3>

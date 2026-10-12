@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Phone, Mail, Clock, MapPin, Menu, X, ChevronRight } from 'lucide-react';
 import { SITE } from '@/lib/site';
 
 const LINKS = [
@@ -16,54 +17,99 @@ export default function Header() {
   const [open, setOpen] = useState(false);
   const path = usePathname();
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-cream/90 backdrop-blur-md">
-      <div className="mx-auto flex h-[68px] max-w-6xl items-center justify-between px-5">
-        <Link href="/" className="flex items-center gap-2.5 font-extrabold tracking-tight">
-          <img src="/logo.svg" alt="A-One Adventures logo" className="h-10 w-10" />
-          <span className="leading-tight">
-            A-One Adventures
-            <small className="block text-[11px] font-semibold uppercase tracking-[0.14em] text-moss">
-              Pokhara, Nepal
-            </small>
-          </span>
-        </Link>
-        <nav
-          className={`${
-            open ? 'absolute inset-x-0 top-[68px] flex-col items-stretch gap-1 border-b border-line bg-cream px-5 pb-4 pt-2' : 'hidden'
-          } flex items-center gap-1 md:static md:flex md:flex-row`}
-        >
-          {LINKS.map((l) => (
-            <Link
-              key={l.href}
-              href={l.href}
-              onClick={() => setOpen(false)}
-              className={`rounded-full px-3.5 py-2 text-[14.5px] font-semibold text-ink/80 hover:bg-[#EDE8D9] ${
-                path === l.href ? 'bg-ink text-white hover:bg-ink' : ''
-              }`}
-            >
-              {l.label}
-            </Link>
-          ))}
-          <Link
-            href="/contact"
-            onClick={() => setOpen(false)}
-            className="rounded-full bg-ink px-5 py-2.5 text-[15px] font-bold text-white transition hover:bg-pine md:ml-1.5"
-          >
-            Reserve Seats
+    <header className="sticky top-0 z-50">
+      <div className="bg-pine text-[13px] text-white/80">
+        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-2">
+          <div className="flex items-center gap-5">
+            <a href={SITE.phoneHref} className="flex items-center gap-1.5 font-bold text-white hover:text-amber-300">
+              <Phone size={14} strokeWidth={2.5} /> {SITE.phone}
+            </a>
+            <a href={`mailto:${SITE.email}`} className="hidden items-center gap-1.5 hover:text-white sm:flex">
+              <Mail size={14} /> {SITE.email}
+            </a>
+          </div>
+          <div className="hidden items-center gap-5 md:flex">
+            <span className="flex items-center gap-1.5">
+              <Clock size={14} /> Open 6 AM to 10 PM, 7 days
+            </span>
+            <span className="flex items-center gap-1.5">
+              <MapPin size={14} /> Lakeside, Pokhara
+            </span>
+          </div>
+          <Link href="/contact" className="flex items-center gap-0.5 font-bold text-amber-300 md:hidden">
+            Enquire <ChevronRight size={15} />
           </Link>
-        </nav>
-        <div className="flex items-center gap-3">
-          <a href={SITE.phoneHref} className="hidden text-sm font-extrabold lg:block">
-            {SITE.phone}
-          </a>
+        </div>
+      </div>
+      <div className="border-b border-line bg-cream/95 backdrop-blur-md">
+        <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-5">
+          <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
+            <img src="/logo.svg" alt="A-One Adventures logo" className="h-11 w-11" />
+            <span className="leading-tight">
+              <span className="block text-[17px] font-extrabold tracking-tight">A-One Adventures</span>
+              <small className="block text-[10.5px] font-semibold uppercase tracking-[0.18em] text-moss">
+                Tours and Treks, Nepal
+              </small>
+            </span>
+          </Link>
+          <nav className="hidden items-center gap-1 md:flex">
+            {LINKS.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                className={`rounded-full px-4 py-2.5 text-[14.5px] font-semibold text-ink/75 transition hover:bg-[#EDE8D9] hover:text-ink ${
+                  path === l.href ? 'bg-ink text-white hover:bg-ink hover:text-white' : ''
+                }`}
+              >
+                {l.label}
+              </Link>
+            ))}
+            <Link
+              href="/contact"
+              className="ml-2 rounded-full bg-accent px-6 py-3 text-[15px] font-bold text-white shadow-sm transition hover:brightness-95"
+            >
+              Reserve Seats
+            </Link>
+          </nav>
           <button
-            className="rounded-lg border border-line px-2.5 py-1.5 md:hidden"
+            className="flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-white md:hidden"
             onClick={() => setOpen(!open)}
             aria-label="Menu"
           >
-            ☰
+            {open ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
+        {open ? (
+          <nav className="grid gap-1 border-t border-line bg-cream px-5 pb-5 pt-3 md:hidden">
+            {LINKS.map((l) => (
+              <Link
+                key={l.href}
+                href={l.href}
+                onClick={() => setOpen(false)}
+                className={`flex items-center justify-between rounded-xl px-4 py-3 text-[15px] font-semibold ${
+                  path === l.href ? 'bg-ink text-white' : 'bg-white text-ink'
+                }`}
+              >
+                {l.label} <ChevronRight size={16} className="opacity-50" />
+              </Link>
+            ))}
+            <div className="mt-2 grid grid-cols-2 gap-2">
+              <a
+                href={SITE.phoneHref}
+                className="flex items-center justify-center gap-2 rounded-xl bg-ink px-4 py-3.5 text-[15px] font-bold text-white"
+              >
+                <Phone size={16} /> Call
+              </a>
+              <Link
+                href="/contact"
+                onClick={() => setOpen(false)}
+                className="flex items-center justify-center gap-2 rounded-xl bg-accent px-4 py-3.5 text-[15px] font-bold text-white"
+              >
+                Reserve Seats
+              </Link>
+            </div>
+          </nav>
+        ) : null}
       </div>
     </header>
   );

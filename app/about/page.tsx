@@ -3,9 +3,9 @@ import Link from 'next/link';
 import { SITE, VEHICLE } from '@/lib/site';
 
 export const metadata: Metadata = {
-  title: 'About Us, Family Run Jeep Tours in Pokhara',
+  title: 'About Us, Family Run Scorpio Tours in Pokhara',
   description:
-    'Meet Ganesh Prasad Subedi, owner driver of A-One Adventures Pokhara. One 8 seater 4WD, years of All Nepal road experience, pilgrim friendly driving.',
+    'Meet Ganesh Prasad Subedi, owner driver of A-One Adventures Pokhara. Comfortable 8 seater Scorpios, years of All Nepal road experience, pilgrim friendly driving.',
   alternates: { canonical: '/about' },
 };
 
@@ -17,7 +17,7 @@ export default function About() {
         A family run team, and a promise to drive safe.
       </h1>
       <p className="mt-2 max-w-[64ch] text-[16.5px] text-moss">
-        A-One Adventures is a family run jeep service from Pokhara built on one idea: give travellers a driver
+        A-One Adventures is a family run Scorpio service from Pokhara built on one idea: give travellers a driver
         they can call by name. Our drivers have spent years on highways and mountain roads across Nepal and know
         every waterfall halt, wind window and tea stop on the way.
       </p>
@@ -35,14 +35,14 @@ export default function About() {
             </p>
             <ul className="m-0 list-disc pl-[18px] text-[15px] text-moss">
               <li>Early starts (5 to 6 AM) to beat Jomsom winds</li>
-              <li>Oxygen and first aid always in the jeep</li>
+              <li>Oxygen and first aid always in the Scorpio</li>
               <li>Helps with ACAP and Upper Mustang permits</li>
             </ul>
           </div>
         </div>
         <div className="rounded-2xl border border-line bg-white">
           <div className="flex flex-col gap-2.5 p-5">
-            <span className="w-fit rounded-full bg-ink px-3 py-1.5 text-xs font-bold text-white">Our 4x4s</span>
+            <span className="w-fit rounded-full bg-ink px-3 py-1.5 text-xs font-bold text-white">Our Scorpios</span>
             <h3 className="font-display text-[22px]">
               {VEHICLE.name} {VEHICLE.year}
             </h3>
@@ -60,7 +60,7 @@ export default function About() {
                 <div key={u} className="h-[120px] rounded-2xl border border-line bg-cover bg-center" style={{ backgroundImage: `url('${u}')` }} />
               ))}
             </div>
-            <p className="text-[13px] text-moss">Placeholder photos. Swap with your own jeep shots when ready.</p>
+            <p className="text-[13px] text-moss">Placeholder photos. Swap with your own Scorpio shots when ready.</p>
           </div>
         </div>
       </div>

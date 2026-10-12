@@ -12,7 +12,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   const p = PACKAGES.find((x) => x.slug === params.slug);
   if (!p) return {};
   const title = `${p.title} ${p.days} from Pokhara, ${p.price}`;
-  const description = `${p.summary} 8 seater 4WD with owner driver Ganesh Prasad Subedi. ${p.priceNote}. Call +977 9846020030 to reserve.`;
+  const description = `${p.summary} 8 seater Scorpio with owner driver Ganesh Prasad Subedi. ${p.priceNote}. Call +977 9846020030 to reserve.`;
   return {
     title,
     description,
