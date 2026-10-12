@@ -37,8 +37,25 @@ export default function ContactForm() {
   const persons = Math.max(Number(f.persons) || 0, 1);
   const scorpios = Math.max(Math.ceil(persons / 7), 1);
 
-  const submit = (e: React.FormEvent) => {
+  const submit = async (e: React.FormEvent) => {
     e.preventDefault();
+    const fid = process.env.NEXT_PUBLIC_FORMSPREE_ID;
+    if (fid) {
+      try {
+        await fetch(`https://formspree.io/f/${fid}`, {
+          method: 'POST',
+          headers: { Accept: 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: f.name, phone: f.phone, email: f.email,
+            package: pkg ? `${pkg.title} ${pkg.days}` : 'Custom trip',
+            from: f.from, to: f.to, persons: f.persons,
+            pickup: f.pickup, message: f.message,
+          }),
+        });
+      } catch {
+        /* still show confirmation even if the email send fails */
+      }
+    }
     setSent(true);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
