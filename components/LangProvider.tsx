@@ -2,7 +2,6 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
 import { Globe, Check } from 'lucide-react';
-import { useState } from 'react';
 import { makeT, type Lang } from '@/lib/t';
 
 type Ctx = { lang: Lang; setLang: (l: Lang) => void; t: ReturnType<typeof makeT>['t']; ta: ReturnType<typeof makeT>['ta'] };
