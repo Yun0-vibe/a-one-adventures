@@ -1,9 +1,12 @@
 import type { Metadata } from 'next';
-import { Phone, ClipboardList } from 'lucide-react';
 import './globals.css';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import Reveal from '@/components/Reveal';
+import ChatWidget from '@/components/ChatWidget';
+import MobileBar from '@/components/MobileBar';
+import { LangProvider } from '@/components/LangProvider';
+import { getLang } from '@/lib/lang';
 
 // TODO: replace with your custom domain if you add one in Vercel
 // (e.g. https://aoneadventures.com). Used for canonical URLs, sitemap and OG tags.
@@ -69,7 +72,7 @@ const JSON_LD = {
     'Family run 8 seater 4WD Scorpio tours from Pokhara across Nepal: Muktinath Darshan, Lower and Upper Mustang, Pathivara Devi, All Nepal circuit.',
   url: SITE_URL,
   telephone: '+9779846020030',
-  priceRange: 'NPR 9,000 to 85,000',
+  priceRange: 'NPR 12,000 to 85,000',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Lakeside',
@@ -82,8 +85,9 @@ const JSON_LD = {
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const lang = getLang();
   return (
-    <html lang="en">
+    <html lang={lang === 'ne' ? 'ne' : 'en'}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -95,27 +99,14 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(JSON_LD) }} />
       </head>
       <body>
-        <Header />
-        <main>{children}</main>
-        <Footer />
-        <div className="h-[76px] md:hidden" aria-hidden />
-        <div className="fixed inset-x-0 bottom-0 z-50 border-t border-line bg-white/95 px-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] pt-3 backdrop-blur md:hidden">
-          <div className="grid grid-cols-2 gap-2.5">
-            <a
-              href="tel:+9779846020030"
-              className="flex items-center justify-center gap-2 rounded-2xl bg-ink px-4 py-3.5 text-[15px] font-bold text-white"
-            >
-              <Phone size={17} /> Call Now
-            </a>
-            <a
-              href="/contact"
-              className="flex items-center justify-center gap-2 rounded-2xl bg-accent px-4 py-3.5 text-[15px] font-bold text-white"
-            >
-              <ClipboardList size={17} /> Enquire
-            </a>
-          </div>
-        </div>
-        <Reveal />
+        <LangProvider>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+          <MobileBar />
+          <ChatWidget />
+          <Reveal />
+        </LangProvider>
       </body>
     </html>
   );

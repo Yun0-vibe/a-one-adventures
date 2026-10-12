@@ -5,6 +5,8 @@ import { ChevronRight, Check, X, Backpack } from 'lucide-react';
 import { PACKAGES } from '@/lib/site';
 import { SITE_URL } from '@/app/layout';
 import { DEFAULT_EXCLUDED, ELEVATION, packingFor } from '@/lib/extras';
+import { NE_PACKAGES, NE_EXCLUDED, NE_MOUNTAIN_PACKING, NE_STANDARD_PACKING } from '@/lib/ne-data';
+import { getLang, makeT } from '@/lib/lang';
 import Elevation from '@/components/Elevation';
 import PrintButton from '@/components/PrintButton';
 
@@ -32,15 +34,26 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 }
 
 export default function Detail({ params }: { params: { slug: string } }) {
-  const p = PACKAGES.find((x) => x.slug === params.slug);
-  if (!p) return notFound();
-  const related = PACKAGES.filter((x) => x.slug !== p.slug).slice(0, 2);
+  const base = PACKAGES.find((x) => x.slug === params.slug);
+  if (!base) return notFound();
+  const lang = getLang();
+  const { t } = makeT(lang);
+  const p = lang === 'ne' ? { ...base, ...NE_PACKAGES[base.slug] } : base;
+  const related = PACKAGES.filter((x) => x.slug !== base.slug)
+    .slice(0, 2)
+    .map((r) => (lang === 'ne' ? { ...r, ...NE_PACKAGES[r.slug] } : r));
+  const excluded = lang === 'ne' ? NE_EXCLUDED : DEFAULT_EXCLUDED;
+  const packing = lang === 'ne'
+    ? (base.slug === 'pathivara-darshan' || base.slug === 'all-nepal-tour' || base.slug === 'pokhara-day-charter'
+        ? NE_STANDARD_PACKING
+        : NE_MOUNTAIN_PACKING)
+    : packingFor(base.slug);
   const tourJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'TouristTrip',
     name: `${p.title}, ${p.days} from Pokhara`,
     description: p.summary,
-    url: `${SITE_URL}/packages/${p.slug}`,
+    url: `${SITE_URL}/packages/${base.slug}`,
     image: p.image,
     touristType: 'Pilgrims, families, adventure travellers',
     provider: { '@type': 'TravelAgency', name: 'A-One Adventures', telephone: '+9779846020030', url: SITE_URL },
@@ -52,7 +65,7 @@ export default function Detail({ params }: { params: { slug: string } }) {
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
       { '@type': 'ListItem', position: 2, name: 'Packages', item: `${SITE_URL}/packages` },
-      { '@type': 'ListItem', position: 3, name: p.title, item: `${SITE_URL}/packages/${p.slug}` },
+      { '@type': 'ListItem', position: 3, name: p.title, item: `${SITE_URL}/packages/${base.slug}` },
     ],
   };
   return (
@@ -60,9 +73,9 @@ export default function Detail({ params }: { params: { slug: string } }) {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(tourJsonLd) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbJsonLd) }} />
       <nav className="no-print mb-5 flex flex-wrap items-center gap-1.5 text-sm font-semibold text-moss" aria-label="Breadcrumb">
-        <Link href="/" className="hover:text-ink">Home</Link>
+        <Link href="/" className="hover:text-ink">{t('dt.home')}</Link>
         <ChevronRight size={14} />
-        <Link href="/packages" className="hover:text-ink">Packages</Link>
+        <Link href="/packages" className="hover:text-ink">{t('dt.pkgs')}</Link>
         <ChevronRight size={14} />
         <span className="text-ink">{p.title}</span>
       </nav>
@@ -79,17 +92,17 @@ export default function Detail({ params }: { params: { slug: string } }) {
           </div>
           <p className="mt-3 max-w-[68ch] text-[16.5px] leading-relaxed text-moss">{p.summary}</p>
           <div className="no-print mt-5 flex flex-wrap gap-2.5">
-            <Link href={`/contact?package=${p.slug}`} className="rounded-full bg-brand px-6 py-3.5 text-[15px] font-bold text-white hover:bg-brand2">
-              Reserve this tour
+            <Link href={`/contact?package=${base.slug}`} className="rounded-full bg-brand px-6 py-3.5 text-[15px] font-bold text-white hover:bg-brand2">
+              {t('dt.reserve')}
             </Link>
             <Link href="/contact" className="rounded-full border border-line px-6 py-3.5 text-[15px] font-bold">
-              Contact to reserve
+              {t('dt.contact')}
             </Link>
             <PrintButton />
           </div>
           <div className="mt-8 grid gap-8 lg:grid-cols-2">
             <div>
-              <h2 className="font-display text-2xl tracking-tight">Tour plan</h2>
+              <h2 className="font-display text-2xl tracking-tight">{t('dt.plan')}</h2>
               <div className="ml-1.5 mt-4 grid gap-5 border-l-2 border-line pl-5">
                 {p.itinerary.map((i) => (
                   <div key={i.day + i.title} className="relative">
@@ -106,7 +119,7 @@ export default function Detail({ params }: { params: { slug: string } }) {
             </div>
             <div className="grid content-start gap-6">
               <div className="rounded-3xl bg-cream p-6">
-                <h2 className="font-display text-2xl tracking-tight">Highlights</h2>
+                <h2 className="font-display text-2xl tracking-tight">{t('dt.high')}</h2>
                 <ul className="mt-3 grid gap-2.5 p-0">
                   {p.highlights.map((h) => (
                     <li key={h} className="flex items-start gap-2.5 text-[15px]">
@@ -116,7 +129,7 @@ export default function Detail({ params }: { params: { slug: string } }) {
                 </ul>
               </div>
               <div className="rounded-3xl border border-line p-6">
-                <h2 className="font-display text-2xl tracking-tight">Includes</h2>
+                <h2 className="font-display text-2xl tracking-tight">{t('dt.inc')}</h2>
                 <ul className="mt-3 grid gap-2.5 p-0">
                   {p.includes.map((h) => (
                     <li key={h} className="flex items-start gap-2.5 text-[15px] text-moss">
@@ -124,9 +137,9 @@ export default function Detail({ params }: { params: { slug: string } }) {
                     </li>
                   ))}
                 </ul>
-                <h2 className="mt-6 font-display text-2xl tracking-tight">Not included</h2>
+                <h2 className="mt-6 font-display text-2xl tracking-tight">{t('dt.exc')}</h2>
                 <ul className="mt-3 grid gap-2.5 p-0">
-                  {DEFAULT_EXCLUDED.map((h) => (
+                  {excluded.map((h) => (
                     <li key={h} className="flex items-start gap-2.5 text-[15px] text-moss">
                       <X size={17} className="mt-0.5 shrink-0 text-moss/60" /> {h}
                     </li>
@@ -136,14 +149,14 @@ export default function Detail({ params }: { params: { slug: string } }) {
             </div>
           </div>
           <div className="mt-8">
-            <Elevation data={ELEVATION[p.slug] ?? ELEVATION['muktinath-darshan']} />
+            <Elevation data={ELEVATION[base.slug] ?? ELEVATION['muktinath-darshan']} title={t('dt.alt')} highest={t('dt.highest')} note={t('dt.altnote')} />
           </div>
           <div className="mt-8 rounded-3xl border border-dashed border-ink/25 bg-[#FCFAF5] p-6 md:p-8">
             <h2 className="flex items-center gap-2.5 font-display text-2xl tracking-tight">
-              <Backpack size={22} className="text-brand" /> What to pack
+              <Backpack size={22} className="text-brand" /> {t('dt.pack')}
             </h2>
             <ul className="mt-4 grid gap-2.5 sm:grid-cols-2">
-              {packingFor(p.slug).map((h) => (
+              {packing.map((h) => (
                 <li key={h} className="flex items-start gap-2.5 text-[15px] text-moss">
                   <Check size={17} className="mt-0.5 shrink-0 text-accent" /> {h}
                 </li>
@@ -153,7 +166,7 @@ export default function Detail({ params }: { params: { slug: string } }) {
         </div>
       </div>
       <div className="no-print mt-10">
-        <h2 className="font-display text-[clamp(24px,3vw,34px)] tracking-tight">You may also like</h2>
+        <h2 className="font-display text-[clamp(24px,3vw,34px)] tracking-tight">{t('dt.related')}</h2>
         <div className="mt-5 grid gap-6 md:grid-cols-2">
           {related.map((r) => (
             <Link

@@ -1,12 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { Star } from 'lucide-react';
-
-const STATS = [
-  { v: 500, suffix: '+', label: 'Trips completed' },
-  { v: 2500, suffix: '+', label: 'Happy travellers' },
-  { v: 20, suffix: '+', label: 'Destinations covered' },
-];
+import { useLang } from './LangProvider';
 
 function Counter({ target, suffix }: { target: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -17,8 +12,8 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
     let raf = 0;
     const run = () => {
       const start = performance.now();
-      const tick = (t: number) => {
-        const k = Math.min((t - start) / 1400, 1);
+      const tick = (tm: number) => {
+        const k = Math.min((tm - start) / 1400, 1);
         setN(Math.round(target * (1 - Math.pow(1 - k, 3))));
         if (k < 1) raf = requestAnimationFrame(tick);
       };
@@ -47,9 +42,15 @@ function Counter({ target, suffix }: { target: number; suffix: string }) {
 }
 
 export default function Counters() {
+  const { t } = useLang();
+  const stats = [
+    { v: 500, suffix: '+', label: t('cnt.1') },
+    { v: 2500, suffix: '+', label: t('cnt.2') },
+    { v: 20, suffix: '+', label: t('cnt.3') },
+  ];
   return (
     <div className="grid gap-8 rounded-[28px] bg-cream px-8 py-12 sm:grid-cols-3 md:px-14">
-      {STATS.map((s) => (
+      {stats.map((s) => (
         <div key={s.label} className="text-center">
           <div className="font-display text-5xl tracking-tight text-brand">
             <Counter target={s.v} suffix={s.suffix} />
@@ -59,7 +60,7 @@ export default function Counters() {
       ))}
       <div className="text-center sm:col-span-3">
         <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-sm font-bold">
-          <Star size={15} className="fill-accent text-accent" /> 4.9 average rating from families and pilgrims
+          <Star size={15} className="fill-accent text-accent" /> {t('cnt.badge')}
         </span>
       </div>
     </div>

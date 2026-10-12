@@ -1,4 +1,4 @@
-export default function Elevation({ data }: { data: { p: string; m: number }[] }) {
+export default function Elevation({ data, title, highest, note }: { data: { p: string; m: number }[]; title: string; highest: string; note: string }) {
   const W = 640;
   const H = 210;
   const PAD = 34;
@@ -15,9 +15,9 @@ export default function Elevation({ data }: { data: { p: string; m: number }[] }
   return (
     <div className="overflow-hidden rounded-3xl border border-line bg-white p-6 md:p-8">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
-        <h3 className="font-display text-[22px]">Altitude profile</h3>
+        <h3 className="font-display text-[22px]">{title}</h3>
         <span className="text-sm font-bold text-brand2">
-          Highest point: {peak.p} ({peak.m.toLocaleString()}m)
+          {highest}: {peak.p} ({peak.m.toLocaleString()}m)
         </span>
       </div>
       <svg viewBox={`0 0 ${W} ${H}`} className="mt-4 w-full" role="img" aria-label={`Altitude profile peaking at ${peak.p}`}>
@@ -40,7 +40,7 @@ export default function Elevation({ data }: { data: { p: string; m: number }[] }
         ))}
       </svg>
       <p className="m-0 mt-2 text-[13px] text-moss">
-        Heights help you plan warm layers and pacing. Mustang climbs over 2,800m from Pokhara.
+        {note}
       </p>
     </div>
   );
