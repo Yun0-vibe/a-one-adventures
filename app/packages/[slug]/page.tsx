@@ -1,8 +1,12 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import { ChevronRight, Check, X, Backpack } from 'lucide-react';
 import { PACKAGES } from '@/lib/site';
 import { SITE_URL } from '@/app/layout';
+import { DEFAULT_EXCLUDED, ELEVATION, packingFor } from '@/lib/extras';
+import Elevation from '@/components/Elevation';
+import PrintButton from '@/components/PrintButton';
 
 export function generateStaticParams() {
   return PACKAGES.map((p) => ({ slug: p.slug }));
@@ -30,6 +34,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
 export default function Detail({ params }: { params: { slug: string } }) {
   const p = PACKAGES.find((x) => x.slug === params.slug);
   if (!p) return notFound();
+  const related = PACKAGES.filter((x) => x.slug !== p.slug).slice(0, 2);
   const tourJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'TouristTrip',
@@ -41,33 +46,54 @@ export default function Detail({ params }: { params: { slug: string } }) {
     provider: { '@type': 'TravelAgency', name: 'A-One Adventures', telephone: '+9779846020030', url: SITE_URL },
     itinerary: p.itinerary.map((i) => ({ '@type': 'TouristDestination', name: `${i.day}: ${i.title}`, description: i.detail })),
   };
+  const crumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE_URL },
+      { '@type': 'ListItem', position: 2, name: 'Packages', item: `${SITE_URL}/packages` },
+      { '@type': 'ListItem', position: 3, name: p.title, item: `${SITE_URL}/packages/${p.slug}` },
+    ],
+  };
   return (
-    <section className="mx-auto max-w-6xl px-5 py-16">
+    <section className="mx-auto max-w-6xl px-5 py-10 md:py-14">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(tourJsonLd) }} />
-      <Link
-        href="/packages"
-        className="mb-4 inline-flex items-center gap-2 rounded-full border border-line px-5 py-3 text-[15px] font-bold"
-      >
-        All packages
-      </Link>
-      <div className="overflow-hidden rounded-2xl border border-line bg-white">
-        <div className="h-[320px] bg-cover bg-center" style={{ backgroundImage: `url('${p.image}')` }} />
-        <div className="p-7">
-          <span className="rounded-full bg-accent px-3 py-1.5 text-xs font-bold text-white">{p.tag}</span>
-          <h1 className="mb-1 mt-2 font-display text-[clamp(28px,4vw,42px)] leading-tight tracking-tight">
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbJsonLd) }} />
+      <nav className="no-print mb-5 flex flex-wrap items-center gap-1.5 text-sm font-semibold text-moss" aria-label="Breadcrumb">
+        <Link href="/" className="hover:text-ink">Home</Link>
+        <ChevronRight size={14} />
+        <Link href="/packages" className="hover:text-ink">Packages</Link>
+        <ChevronRight size={14} />
+        <span className="text-ink">{p.title}</span>
+      </nav>
+      <div className="overflow-hidden rounded-[28px] border border-line bg-white">
+        <div className="h-[280px] bg-cover bg-center md:h-[360px]" style={{ backgroundImage: `url('${p.image}')` }} />
+        <div className="p-6 md:p-10">
+          <span className="rounded-full bg-accent px-3.5 py-1.5 text-xs font-bold text-white">{p.tag}</span>
+          <h1 className="mb-1 mt-3 font-display text-[clamp(30px,4vw,46px)] leading-tight tracking-tight">
             {p.title} {p.days}
           </h1>
-          <div className="text-lg font-extrabold">
+          <div className="text-xl font-extrabold">
             {p.price}
-            <small className="block text-[12.5px] font-medium text-moss">{p.priceNote}</small>
+            <small className="block text-[13px] font-medium text-moss">{p.priceNote}</small>
           </div>
-          <p className="mt-2 max-w-[64ch] text-[16.5px] text-moss">{p.summary}</p>
-          <div className="mt-6 grid gap-[18px] md:grid-cols-2">
+          <p className="mt-3 max-w-[68ch] text-[16.5px] leading-relaxed text-moss">{p.summary}</p>
+          <div className="no-print mt-5 flex flex-wrap gap-2.5">
+            <Link href={`/contact?package=${p.slug}`} className="rounded-full bg-brand px-6 py-3.5 text-[15px] font-bold text-white hover:bg-brand2">
+              Reserve this tour
+            </Link>
+            <Link href="/contact" className="rounded-full border border-line px-6 py-3.5 text-[15px] font-bold">
+              Contact to reserve
+            </Link>
+            <PrintButton />
+          </div>
+          <div className="mt-8 grid gap-8 lg:grid-cols-2">
             <div>
-              <h3 className="font-display text-[22px]">Tour plan</h3>
-              <div className="ml-1.5 mt-3.5 grid gap-4 border-l-2 border-line pl-5">
+              <h2 className="font-display text-2xl tracking-tight">Tour plan</h2>
+              <div className="ml-1.5 mt-4 grid gap-5 border-l-2 border-line pl-5">
                 {p.itinerary.map((i) => (
-                  <div key={i.day + i.title}>
+                  <div key={i.day + i.title} className="relative">
+                    <span className="absolute -left-[27px] top-1 h-3 w-3 rounded-full bg-brand" />
                     <b className="text-sm text-brand2">{i.day}</b>
                     <div>
                       <strong>{i.title}</strong>
@@ -78,29 +104,74 @@ export default function Detail({ params }: { params: { slug: string } }) {
                 ))}
               </div>
             </div>
-            <div>
-              <h3 className="font-display text-[22px]">Highlights</h3>
-              <ul className="list-disc pl-5 text-moss">
-                {p.highlights.map((h) => (
-                  <li key={h}>{h}</li>
-                ))}
-              </ul>
-              <h3 className="mt-4 font-display text-[22px]">Includes</h3>
-              <ul className="list-disc pl-5 text-moss">
-                {p.includes.map((h) => (
-                  <li key={h}>{h}</li>
-                ))}
-              </ul>
-              <div className="mt-4 flex flex-wrap gap-2.5">
-                <Link href={`/contact?package=${p.slug}`} className="rounded-full bg-brand px-5 py-3 text-[15px] font-bold text-white">
-                  Reserve this tour
-                </Link>
-                <Link href="/contact" className="rounded-full border border-line px-5 py-3 text-[15px] font-bold">
-                  Contact to reserve
-                </Link>
+            <div className="grid content-start gap-6">
+              <div className="rounded-3xl bg-cream p-6">
+                <h2 className="font-display text-2xl tracking-tight">Highlights</h2>
+                <ul className="mt-3 grid gap-2.5 p-0">
+                  {p.highlights.map((h) => (
+                    <li key={h} className="flex items-start gap-2.5 text-[15px]">
+                      <Check size={17} className="mt-0.5 shrink-0 text-brand2" /> {h}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-3xl border border-line p-6">
+                <h2 className="font-display text-2xl tracking-tight">Includes</h2>
+                <ul className="mt-3 grid gap-2.5 p-0">
+                  {p.includes.map((h) => (
+                    <li key={h} className="flex items-start gap-2.5 text-[15px] text-moss">
+                      <Check size={17} className="mt-0.5 shrink-0 text-brand2" /> {h}
+                    </li>
+                  ))}
+                </ul>
+                <h2 className="mt-6 font-display text-2xl tracking-tight">Not included</h2>
+                <ul className="mt-3 grid gap-2.5 p-0">
+                  {DEFAULT_EXCLUDED.map((h) => (
+                    <li key={h} className="flex items-start gap-2.5 text-[15px] text-moss">
+                      <X size={17} className="mt-0.5 shrink-0 text-moss/60" /> {h}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </div>
           </div>
+          <div className="mt-8">
+            <Elevation data={ELEVATION[p.slug] ?? ELEVATION['muktinath-darshan']} />
+          </div>
+          <div className="mt-8 rounded-3xl border border-dashed border-ink/25 bg-[#FCFAF5] p-6 md:p-8">
+            <h2 className="flex items-center gap-2.5 font-display text-2xl tracking-tight">
+              <Backpack size={22} className="text-brand" /> What to pack
+            </h2>
+            <ul className="mt-4 grid gap-2.5 sm:grid-cols-2">
+              {packingFor(p.slug).map((h) => (
+                <li key={h} className="flex items-start gap-2.5 text-[15px] text-moss">
+                  <Check size={17} className="mt-0.5 shrink-0 text-accent" /> {h}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div className="no-print mt-10">
+        <h2 className="font-display text-[clamp(24px,3vw,34px)] tracking-tight">You may also like</h2>
+        <div className="mt-5 grid gap-6 md:grid-cols-2">
+          {related.map((r) => (
+            <Link
+              key={r.slug}
+              href={`/packages/${r.slug}`}
+              className="group flex gap-4 rounded-3xl border border-line bg-white p-4 transition hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(26,46,34,0.12)]"
+            >
+              <div
+                className="h-[130px] w-[150px] shrink-0 rounded-2xl bg-cover bg-center"
+                style={{ backgroundImage: `url('${r.image}')` }}
+              />
+              <div className="flex flex-col justify-center gap-1">
+                <span className="text-xs font-bold uppercase tracking-wider text-brand2">{r.days}</span>
+                <b className="font-display text-xl leading-snug group-hover:underline">{r.title}</b>
+                <span className="text-sm font-bold">{r.price}</span>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </section>

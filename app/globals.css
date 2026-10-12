@@ -30,3 +30,18 @@ body {
   opacity: 1;
   transform: none;
 }
+
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+  .reveal {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

@@ -18,6 +18,8 @@ import {
 } from 'lucide-react';
 import { PACKAGES, ROUTES, SITE, VEHICLE } from '@/lib/site';
 import Faq, { FAQ_JSON_LD } from '@/components/Faq';
+import Counters from '@/components/Counters';
+import Gallery from '@/components/Gallery';
 
 const TESTIMONIALS = [
   {
@@ -58,7 +60,7 @@ export default function Home() {
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2000&auto=format&fit=crop')" }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/25 to-black/70" />
-        <div className="relative z-[2] mx-auto max-w-6xl px-5 pb-24 pt-20 md:pb-32 md:pt-28">
+        <div className="relative z-[2] mx-auto max-w-6xl px-5 pb-16 pt-14 md:pb-32 md:pt-28">
           <div className="flex flex-wrap items-center gap-3">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.12em]">
               Pokhara · 4x4 Scorpio Tours Across Nepal
@@ -104,7 +106,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-20 md:py-24">
+      <section className="mx-auto max-w-6xl px-5 py-14 md:py-24">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div className="max-w-[60ch]">
             <div className="text-xs font-extrabold uppercase tracking-[0.16em] text-brand2">Popular packages</div>
@@ -161,8 +163,14 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="mx-auto max-w-6xl px-5 pb-14 md:pb-24">
+        <div className="reveal">
+          <Counters />
+        </div>
+      </section>
+
       <section className="border-y border-line bg-white">
-        <div className="mx-auto max-w-6xl px-5 py-20 md:py-24">
+        <div className="mx-auto max-w-6xl px-5 py-14 md:py-24">
           <div className="max-w-[64ch]">
             <div className="text-xs font-extrabold uppercase tracking-[0.16em] text-brand2">Why A-One</div>
             <h2 className="mt-3 font-display text-[clamp(30px,4vw,46px)] leading-tight tracking-tight">
@@ -191,7 +199,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-20 md:py-24">
+      <section className="mx-auto max-w-6xl px-5 py-14 md:py-24">
         <div className="reveal grid items-center gap-10 overflow-hidden rounded-[28px] bg-ink p-9 text-[#EDF3EE] md:p-14 lg:grid-cols-2">
           <div>
             <div className="text-xs font-extrabold uppercase tracking-[0.16em] text-amber-300">Our fleet</div>
@@ -225,7 +233,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-20 md:pb-24">
+      <section className="mx-auto max-w-6xl px-5 pb-14 md:pb-24">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <h2 className="font-display text-[clamp(28px,4vw,42px)] leading-tight tracking-tight">
             Postcards from the road.
@@ -234,22 +242,11 @@ export default function Home() {
             Plan your trip <ArrowRight size={16} />
           </Link>
         </div>
-        <div className="mt-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
-          {GALLERY.map((g) => (
-            <div key={g.label} className="reveal group relative h-[220px] overflow-hidden rounded-3xl md:h-[260px]">
-              <div
-                className="absolute inset-0 bg-cover bg-center transition duration-500 group-hover:scale-105"
-                style={{ backgroundImage: `url('${g.src}')` }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              <span className="absolute bottom-4 left-4 text-sm font-bold text-white">{g.label}</span>
-            </div>
-          ))}
-        </div>
+        <Gallery items={GALLERY} />
       </section>
 
       <section className="border-y border-line bg-white">
-        <div className="mx-auto max-w-6xl px-5 py-20 md:py-24">
+        <div className="mx-auto max-w-6xl px-5 py-14 md:py-24">
           <div className="max-w-[64ch]">
             <div className="text-xs font-extrabold uppercase tracking-[0.16em] text-brand2">How it works</div>
             <h2 className="mt-3 font-display text-[clamp(30px,4vw,46px)] leading-tight tracking-tight">
@@ -276,7 +273,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 py-20 md:py-24">
+      <section className="mx-auto max-w-6xl px-5 py-14 md:py-24">
         <div className="max-w-[64ch]">
           <div className="text-xs font-extrabold uppercase tracking-[0.16em] text-brand2">Traveller stories</div>
           <h2 className="mt-3 font-display text-[clamp(30px,4vw,46px)] leading-tight tracking-tight">
@@ -301,7 +298,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-20 md:pb-24">
+      <section className="mx-auto max-w-6xl px-5 pb-14 md:pb-24">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.6fr]">
           <div>
             <div className="text-xs font-extrabold uppercase tracking-[0.16em] text-brand2">Good to know</div>
@@ -322,7 +319,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-20 md:pb-24">
+      <section className="mx-auto max-w-6xl px-5 pb-14 md:pb-24">
         <div className="mt-2 overflow-auto rounded-3xl border border-line bg-white">
           <table className="w-full min-w-[640px] border-collapse text-[15px]">
             <thead>
@@ -347,7 +344,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-5 pb-20 md:pb-24">
+      <section className="mx-auto max-w-6xl px-5 pb-14 md:pb-24">
         <div className="reveal rounded-[28px] bg-brand px-8 py-14 text-center text-white md:py-16">
           <h2 className="mx-auto max-w-[22ch] font-display text-[clamp(28px,4vw,44px)] leading-tight tracking-tight">
             Tell us your dates. We handle the road.
