@@ -4,6 +4,11 @@ const nextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: 'images.unsplash.com' }
     ]
+  },
+  async redirects() {
+    return [
+      { source: '/booking', destination: '/contact', permanent: true },
+    ];
   }
 };
 module.exports = nextConfig;

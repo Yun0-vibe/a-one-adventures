@@ -1,52 +1,60 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { SITE } from '@/lib/site';
+import ContactForm from './form';
 
 export const metadata: Metadata = {
-  title: 'Contact, Call or Message Your Driver Directly',
+  title: 'Contact and Reservation, Enquire with Dates and Group Size',
   description:
-    'Contact A-One Adventures Pokhara: call Ganesh Prasad Subedi on +977 9846020030. Lakeside pickup, 6 AM to 10 PM, 7 days.',
+    'Send your tour enquiry: phone, email, travel dates, person count and package. A-One Adventures Pokhara calls you back fast. Or call Ganesh Prasad Subedi on +977 9846020030.',
   alternates: { canonical: '/contact' },
 };
 
 export default function Contact() {
   return (
-    <section className="mx-auto max-w-6xl px-5 py-16">
-      <div className="text-xs font-extrabold uppercase tracking-[0.16em] text-brand2">Contact</div>
-      <h1 className="mt-2 font-display text-[clamp(28px,4vw,42px)] leading-tight tracking-tight">
-        Call the driver, not a call centre.
-      </h1>
-      <div className="mt-6 grid gap-[18px] md:grid-cols-2">
-        <div className="rounded-2xl border border-line bg-white">
-          <div className="flex flex-col gap-2.5 p-5">
-            <span className="w-fit rounded-full bg-brand px-3 py-1.5 text-xs font-bold text-white">Fastest reply</span>
-            <h3 className="font-display text-[22px]">{SITE.driver}</h3>
-            <p className="my-1.5 text-[22px] font-extrabold">
+    <section className="mx-auto max-w-6xl px-5 py-16 md:py-20">
+      <div className="max-w-[64ch]">
+        <div className="text-xs font-extrabold uppercase tracking-[0.16em] text-brand2">Contact and reservation</div>
+        <h1 className="mt-2 font-display text-[clamp(30px,4vw,44px)] leading-tight tracking-tight">
+          Tell us your dates. We handle the road.
+        </h1>
+        <p className="mt-2 text-[16.5px] text-moss">
+          Fill the enquiry form and we call you back to confirm jeeps, fare and pickup. Led by {SITE.driver}.
+        </p>
+      </div>
+      <div className="mt-8 grid items-start gap-6 lg:grid-cols-[1.5fr_1fr]">
+        <Suspense>
+          <ContactForm />
+        </Suspense>
+        <div className="grid gap-6">
+          <div className="rounded-3xl bg-ink p-7 text-[#DCE7DE]">
+            <div className="text-xs font-extrabold uppercase tracking-[0.16em] text-amber-300">Fastest reply</div>
+            <h3 className="mt-1 font-display text-2xl text-white">{SITE.driver}</h3>
+            <p className="my-2 text-xl font-extrabold text-white">
               <a href={SITE.phoneHref}>{SITE.phone}</a>
             </p>
-            <p className="text-moss">
-              {SITE.location}. Available 6 AM to 10 PM Nepal time, 7 days. For email: {SITE.email}
+            <p className="text-[14.5px]">
+              {SITE.location}. Open 6 AM to 10 PM Nepal time, 7 days. Email: {SITE.email}
             </p>
-            <div className="flex flex-wrap gap-2.5">
-              <a href={SITE.phoneHref} className="rounded-full bg-brand px-5 py-3 text-[15px] font-bold text-white">
+            <div className="mt-3 flex flex-wrap gap-2.5">
+              <a href={SITE.phoneHref} className="rounded-full bg-white px-5 py-3 text-[15px] font-bold text-ink">
                 Call now
               </a>
-              <a href={`mailto:${SITE.email}`} className="rounded-full border border-line px-5 py-3 text-[15px] font-bold">
+              <a href={`mailto:${SITE.email}`} className="rounded-full border border-white/30 px-5 py-3 text-[15px] font-bold text-white">
                 Email us
               </a>
             </div>
           </div>
-        </div>
-        <div className="rounded-2xl border border-line bg-white">
-          <div className="flex flex-col gap-2.5 p-5">
+          <div className="rounded-3xl border border-line bg-white p-7">
             <h3 className="font-display text-[22px]">Find us</h3>
-            <p className="text-moss">
-              Based in Lakeside, Pokhara. We pick up from any hotel in Pokhara valley, plus Kathmandu starts for All
-              Nepal and Pathivara tours.
+            <p className="text-[14.5px] text-moss">
+              Based in Lakeside, Pokhara. Pickup from any hotel in Pokhara valley, plus Kathmandu starts for All Nepal
+              and Pathivara tours.
             </p>
             <iframe
               title="Pokhara map"
               src="https://www.google.com/maps?q=Pokhara+Lakeside&output=embed"
-              className="min-h-[260px] w-full rounded-xl border-0"
+              className="mt-3 min-h-[240px] w-full rounded-xl border-0"
               loading="lazy"
             />
           </div>

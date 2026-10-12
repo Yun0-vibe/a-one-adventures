@@ -11,7 +11,7 @@ export default function Footer() {
             <b className="text-white">A-One Adventures</b>
           </div>
           <p className="max-w-[38ch] text-[14.5px]">
-            8 seater 4WD tours from Pokhara across Nepal. One clean jeep, one experienced mountain driver. Available
+            8 seater 4WD tours from Pokhara across Nepal. Clean jeeps, experienced mountain drivers. Available
             for reservation for families, pilgrims and groups.
           </p>
           <p className="mt-3 text-sm">
@@ -28,7 +28,7 @@ export default function Footer() {
           <Link href="/about" className="block py-1 text-[14.5px] hover:text-white">About us</Link>
           <Link href="/packages" className="block py-1 text-[14.5px] hover:text-white">All packages</Link>
           <Link href="/routes" className="block py-1 text-[14.5px] hover:text-white">Routes and fares</Link>
-          <Link href="/booking" className="block py-1 text-[14.5px] hover:text-white">Reserve your seats</Link>
+          <Link href="/contact" className="block py-1 text-[14.5px] hover:text-white">Reserve your seats</Link>
           <Link href="/contact" className="block py-1 text-[14.5px] hover:text-white">Contact</Link>
         </div>
         <div>

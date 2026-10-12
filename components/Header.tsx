@@ -45,7 +45,7 @@ export default function Header() {
             </Link>
           ))}
           <Link
-            href="/booking"
+            href="/contact"
             onClick={() => setOpen(false)}
             className="rounded-full bg-ink px-5 py-2.5 text-[15px] font-bold text-white transition hover:bg-pine md:ml-1.5"
           >

@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     siteName: 'A-One Adventures',
     title: 'A-One Adventures | 4x4 Jeep Tours Across Nepal from Pokhara',
     description:
-      'Muktinath, Mustang, Pathivara, Chitwan, Lumbini and full All Nepal circuits by 8 seater 4WD. One jeep, one trusted driver.',
+      'Muktinath, Mustang, Pathivara, Chitwan, Lumbini and full All Nepal circuits by 8 seater 4WD with trusted local drivers.',
     images: [
       {
         url: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop',

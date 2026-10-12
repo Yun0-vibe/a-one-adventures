@@ -121,7 +121,7 @@ export const PACKAGES: Pkg[] = [
     tag: 'Best Value',
     image: 'https://images.unsplash.com/photo-1558799401-1dcba79834c2?q=80&w=1600&auto=format&fit=crop',
     summary:
-      'The complete first timer loop: Kathmandu heritage, Manakamana, Pokhara, Muktinath, Chitwan safari and Lumbini. One jeep, one driver, zero bus hassle.',
+      'The complete first timer loop: Kathmandu heritage, Manakamana, Pokhara, Muktinath, Chitwan safari and Lumbini. Same team and jeeps throughout, zero bus hassle.',
     highlights: ['Kathmandu Durbar plus Swayambhu', 'Pokhara lakeside plus Sarangkot', 'Muktinath or Jomsom leg', 'Chitwan safari plus Lumbini birthplace'],
     itinerary: [
       { day: 'Day 1 to 2', title: 'Kathmandu plus Manakamana', detail: 'Pashupati, Boudha, Bhaktapur. Cable car option to Manakamana.' },

@@ -14,7 +14,7 @@ export default function Packages() {
     <section className="mx-auto max-w-6xl px-5 py-16">
       <div className="text-xs font-extrabold uppercase tracking-[0.16em] text-brand2">Packages</div>
       <h1 className="mt-2 font-display text-[clamp(28px,4vw,42px)] leading-tight tracking-tight">
-        Six honest packages. One jeep that does them all.
+        Six honest packages. One team that runs them all.
       </h1>
       <p className="mt-2 max-w-[64ch] text-[16.5px] text-moss">
         All prices are full jeep, not per person. Share with 6 to 7 travellers. Permits (ACAP NPR 3,000, Upper Mustang
@@ -49,7 +49,7 @@ export default function Packages() {
                   Itinerary
                 </Link>
                 <Link
-                  href={`/booking?package=${p.slug}`}
+                  href={`/contact?package=${p.slug}`}
                   className="flex flex-1 justify-center rounded-full border border-line px-5 py-3 text-[15px] font-bold"
                 >
                   Reserve

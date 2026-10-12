@@ -92,7 +92,7 @@ export default function Detail({ params }: { params: { slug: string } }) {
                 ))}
               </ul>
               <div className="mt-4 flex flex-wrap gap-2.5">
-                <Link href={`/booking?package=${p.slug}`} className="rounded-full bg-brand px-5 py-3 text-[15px] font-bold text-white">
+                <Link href={`/contact?package=${p.slug}`} className="rounded-full bg-brand px-5 py-3 text-[15px] font-bold text-white">
                   Reserve this tour
                 </Link>
                 <Link href="/contact" className="rounded-full border border-line px-5 py-3 text-[15px] font-bold">

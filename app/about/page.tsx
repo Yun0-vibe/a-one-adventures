@@ -13,21 +13,22 @@ export default function About() {
   return (
     <section className="mx-auto max-w-6xl px-5 py-16">
       <div className="text-xs font-extrabold uppercase tracking-[0.16em] text-brand2">About us</div>
-      <h1 className="mt-2 max-w-[20ch] font-display text-[clamp(28px,4vw,42px)] leading-tight tracking-tight">
-        A father, a jeep, and a promise to drive safe.
+      <h1 className="mt-2 max-w-[22ch] font-display text-[clamp(28px,4vw,42px)] leading-tight tracking-tight">
+        A family run team, and a promise to drive safe.
       </h1>
       <p className="mt-2 max-w-[64ch] text-[16.5px] text-moss">
-        A-One Adventures started with one vehicle, our family 4x4, and one idea: give travellers in Pokhara a driver
-        they can call by name. {SITE.driver} has spent years on highways and mountain roads across Nepal and knows
+        A-One Adventures is a family run jeep service from Pokhara built on one idea: give travellers a driver
+        they can call by name. Our drivers have spent years on highways and mountain roads across Nepal and know
         every waterfall halt, wind window and tea stop on the way.
       </p>
       <div className="mt-6 grid gap-[18px] md:grid-cols-2">
         <div className="rounded-2xl border border-line bg-white">
           <div className="flex flex-col gap-2.5 p-5">
-            <span className="w-fit rounded-full bg-brand px-3 py-1.5 text-xs font-bold text-white">Owner driver</span>
+            <span className="w-fit rounded-full bg-brand px-3 py-1.5 text-xs font-bold text-white">Reservations lead</span>
             <h3 className="font-display text-[22px]">{SITE.driver}</h3>
             <p className="text-moss">
-              Mountain driver, Hindi and Nepali plus basic English, pilgrim and family specialist. Phone:{' '}
+              Senior mountain driver, Hindi and Nepali plus basic English, pilgrim and family specialist. He heads
+              bookings and drives the high routes himself. Phone:{' '}
               <a href={SITE.phoneHref} className="font-extrabold text-brand">
                 {SITE.phone}
               </a>
@@ -41,13 +42,14 @@ export default function About() {
         </div>
         <div className="rounded-2xl border border-line bg-white">
           <div className="flex flex-col gap-2.5 p-5">
-            <span className="w-fit rounded-full bg-ink px-3 py-1.5 text-xs font-bold text-white">The vehicle</span>
+            <span className="w-fit rounded-full bg-ink px-3 py-1.5 text-xs font-bold text-white">Our 4x4s</span>
             <h3 className="font-display text-[22px]">
               {VEHICLE.name} {VEHICLE.year}
             </h3>
             <p className="text-moss">
-              {VEHICLE.seats}, {VEHICLE.drive}. Serviced for mountain load, comfortable 2 plus 3 plus 2 seating.
-              Number plate and photos being added. Call us for the latest pictures.
+              Including our {VEHICLE.name} {VEHICLE.year}: {VEHICLE.seats}, {VEHICLE.drive}. Serviced for mountain
+              load, comfortable 2 plus 3 plus 2 seating. Number plate and photos being added. Call us for the latest
+              pictures.
             </p>
             <div className="mt-1 grid grid-cols-3 gap-3">
               {[
@@ -66,7 +68,7 @@ export default function About() {
         <Link href="/packages" className="rounded-full bg-ink px-5 py-3 text-[15px] font-bold text-white">
           See packages
         </Link>
-        <Link href="/booking" className="rounded-full border border-line px-5 py-3 text-[15px] font-bold">
+        <Link href="/contact" className="rounded-full border border-line px-5 py-3 text-[15px] font-bold">
           Reserve your seats
         </Link>
       </div>

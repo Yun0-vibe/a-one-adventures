@@ -15,7 +15,7 @@ npm run dev
 ## Customise
 - Photos: drop your Scorpio photos in `public/` as `scorpio-1.jpg`, `scorpio-2.jpg`, then update `lib/site.ts` (`vehiclePhotos`).
 - Number plate: update `lib/site.ts` → `vehicle.plate`.
-- WhatsApp bookings: booking form opens WhatsApp to +977 9846020030 with pre-filled details. No backend needed.
+- Enquiry form on `/contact`: name, phone, email, package, date from and to (auto trip length), person count, pickup, message. No backend needed.
 - Logo: `public/logo.svg` — clean mountain + road mark.
 
 ## Contact
