@@ -2,6 +2,17 @@
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
 
+function revealEl(el: Element) {
+  if (el.classList.contains('in')) return;
+  const html = el as HTMLElement;
+  const d = html.dataset.delay;
+  if (d) html.style.transitionDelay = `${d}ms`;
+  el.classList.add('in');
+  setTimeout(() => {
+    html.style.transitionDelay = '';
+  }, 900);
+}
+
 export default function Reveal() {
   const path = usePathname();
 
@@ -12,12 +23,12 @@ export default function Reveal() {
     const showIfVisible = () => {
       els.forEach((el) => {
         const r = el.getBoundingClientRect();
-        if (r.top < window.innerHeight + 200) el.classList.add('in');
+        if (r.top < window.innerHeight + 200) revealEl(el);
       });
     };
 
     if (typeof IntersectionObserver === 'undefined') {
-      showIfVisible();
+      els.forEach(revealEl);
       return;
     }
 
@@ -25,7 +36,7 @@ export default function Reveal() {
       (entries) =>
         entries.forEach((e) => {
           if (e.isIntersecting) {
-            e.target.classList.add('in');
+            revealEl(e.target);
             io.unobserve(e.target);
           }
         }),

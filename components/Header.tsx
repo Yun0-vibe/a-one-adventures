@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Phone, Mail, Clock, MapPin, Menu, X, ChevronRight } from 'lucide-react';
+import { Phone, Menu, X, ChevronRight } from 'lucide-react';
 import { SITE } from '@/lib/site';
 
 const LINKS = [
@@ -19,29 +19,6 @@ export default function Header() {
   const path = usePathname();
   return (
     <header className="sticky top-0 z-50">
-      <div className="bg-pine text-[13px] text-white/80">
-        <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-5 py-2">
-          <div className="flex items-center gap-5">
-            <a href={SITE.phoneHref} className="flex items-center gap-1.5 font-bold text-white hover:text-amber-300">
-              <Phone size={14} strokeWidth={2.5} /> {SITE.phone}
-            </a>
-            <a href={`mailto:${SITE.email}`} className="hidden items-center gap-1.5 hover:text-white sm:flex">
-              <Mail size={14} /> {SITE.email}
-            </a>
-          </div>
-          <div className="hidden items-center gap-5 md:flex">
-            <span className="flex items-center gap-1.5">
-              <Clock size={14} /> Open 6 AM to 10 PM, 7 days
-            </span>
-            <span className="flex items-center gap-1.5">
-              <MapPin size={14} /> Lakeside, Pokhara
-            </span>
-          </div>
-          <Link href="/contact" className="flex items-center gap-0.5 font-bold text-amber-300 md:hidden">
-            Enquire <ChevronRight size={15} />
-          </Link>
-        </div>
-      </div>
       <div className="border-b border-line bg-cream/95 backdrop-blur-md">
         <div className="mx-auto flex h-[72px] max-w-6xl items-center justify-between px-5">
           <Link href="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>

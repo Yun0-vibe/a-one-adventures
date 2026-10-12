@@ -56,12 +56,12 @@ export default function Home() {
 
       <section className="relative overflow-hidden border-b border-line bg-pine text-white">
         <div
-          className="absolute inset-0 scale-[1.02] bg-cover bg-center opacity-50"
+          className="kenburns absolute inset-0 bg-cover bg-center opacity-50"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=2000&auto=format&fit=crop')" }}
         />
         <div className="absolute inset-0 bg-gradient-to-b from-black/25 to-black/70" />
         <div className="relative z-[2] mx-auto max-w-6xl px-5 pb-16 pt-14 md:pb-32 md:pt-28">
-          <div className="flex flex-wrap items-center gap-3">
+          <div className="anim-hero flex flex-wrap items-center gap-3">
             <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.12em]">
               Pokhara · 4x4 Scorpio Tours Across Nepal
             </span>
@@ -69,15 +69,15 @@ export default function Home() {
               <Star size={13} className="fill-accent text-accent" /> 4.9 rated by 200 plus travellers
             </span>
           </div>
-          <h1 className="mt-6 max-w-[15ch] font-display text-[clamp(40px,7vw,80px)] leading-[1.0] tracking-tight">
+          <h1 className="anim-hero anim-d1 mt-6 max-w-[15ch] font-display text-[clamp(40px,7vw,80px)] leading-[1.0] tracking-tight">
             Skip the bus. <em className="font-normal italic text-amber-300">See the real Nepal.</em>
           </h1>
-          <p className="mt-6 max-w-[54ch] text-lg leading-relaxed text-[#E7EFE8]">
+          <p className="anim-hero anim-d2 mt-6 max-w-[54ch] text-lg leading-relaxed text-[#E7EFE8]">
             A-One Adventures is a family run Scorpio service from Pokhara, open for reservation for full All Nepal
             circuits plus Mustang, Muktinath, Pathivara, Chitwan and Lumbini trips. Our 8 seater Scorpios come with
             experienced mountain drivers. No brokers, no swapped vehicles, no surprise charges.
           </p>
-          <div className="mt-9 flex flex-wrap gap-3">
+          <div className="anim-hero anim-d3 mt-9 flex flex-wrap gap-3">
             <Link
               href="/contact"
               className="inline-flex items-center gap-2 rounded-full bg-accent px-7 py-4 text-base font-bold text-white transition hover:brightness-95"
@@ -91,7 +91,7 @@ export default function Home() {
               View 6 packages
             </Link>
           </div>
-          <div className="mt-14 grid gap-8 border-t border-white/20 pt-8 sm:grid-cols-3">
+          <div className="anim-hero anim-d4 mt-14 grid gap-8 border-t border-white/20 pt-8 sm:grid-cols-3">
             {[
               ['8 seater Scorpios', 'High clearance, serviced fleet'],
               ['All Nepal coverage', 'Mustang to Mechi to Mahakali'],
@@ -105,6 +105,20 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <div className="ticker overflow-hidden border-b border-line bg-accent py-4 text-white">
+        <div className="ticker-track flex w-max items-center gap-10 pr-10">
+          {[0, 1].map((dup) => (
+            <div key={dup} className="flex items-center gap-10" aria-hidden={dup === 1}>
+              {['Muktinath', 'Lo Manthang', 'Pathivara', 'Jomsom', 'Marpha', 'Kagbeni', 'Chitwan', 'Lumbini', 'Kathmandu', 'Ghandruk', 'Tatopani', 'Ilam'].map((d) => (
+                <span key={d} className="flex items-center gap-10 whitespace-nowrap font-display text-xl italic tracking-tight">
+                  {d} <span className="text-sm not-italic">✦</span>
+                </span>
+              ))}
+            </div>
+          ))}
+        </div>
+      </div>
 
       <section className="mx-auto max-w-6xl px-5 py-14 md:py-24">
         <div className="flex flex-wrap items-end justify-between gap-4">
@@ -123,9 +137,10 @@ export default function Home() {
           it beats any bus.
         </p>
         <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {PACKAGES.slice(0, 3).map((p) => (
+          {PACKAGES.slice(0, 3).map((p, i) => (
             <article
               key={p.slug}
+              data-delay={i * 100}
               className="reveal flex flex-col overflow-hidden rounded-3xl border border-line bg-white transition duration-200 hover:-translate-y-1 hover:shadow-[0_18px_40px_rgba(26,46,34,0.12)]"
             >
               <div className="relative h-[220px] bg-cover bg-center" style={{ backgroundImage: `url('${p.image}')` }}>
@@ -186,8 +201,8 @@ export default function Home() {
               { icon: Compass, t: 'All Nepal experience', s: 'Mustang, Pathivara, Chitwan, Lumbini and Kathmandu routes driven regularly.' },
               { icon: HeartHandshake, t: 'Pilgrim friendly', s: 'Slow pacing, temple timing help, pony and palanquin coordination for elders.' },
               { icon: BadgeCheck, t: 'Transparent fare', s: 'Fuel, tolls and driver stay in the quote. Permit guidance free, no hidden costs.' },
-            ].map((c) => (
-              <div key={c.t} className="reveal rounded-3xl border border-line bg-cream p-7">
+            ].map((c, i) => (
+              <div key={c.t} data-delay={i * 90} className="reveal rounded-3xl border border-line bg-cream p-7">
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-brand text-white">
                   <c.icon size={22} />
                 </span>
@@ -260,7 +275,7 @@ export default function Home() {
               { icon: Wallet, t: 'Small advance', s: 'eSewa or bank transfer locks your dates. Balance later, no stress.' },
               { icon: Car, t: 'Pickup and travel', s: 'Hotel pickup at 5 to 6 AM for Mustang. Enjoy the road.' },
             ].map((s, i) => (
-              <div key={s.t} className="reveal relative rounded-3xl border border-line bg-cream p-7">
+              <div key={s.t} data-delay={i * 90} className="reveal relative rounded-3xl border border-line bg-cream p-7">
                 <span className="absolute right-6 top-5 font-display text-4xl text-ink/10">{i + 1}</span>
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-ink text-white">
                   <s.icon size={22} />
@@ -281,8 +296,8 @@ export default function Home() {
           </h2>
         </div>
         <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {TESTIMONIALS.map((t) => (
-            <figure key={t.name} className="reveal m-0 flex flex-col gap-4 rounded-3xl border border-line bg-white p-7">
+          {TESTIMONIALS.map((t, i) => (
+            <figure key={t.name} data-delay={i * 100} className="reveal m-0 flex flex-col gap-4 rounded-3xl border border-line bg-white p-7">
               <div className="flex gap-1 text-accent">
                 {[0, 1, 2, 3, 4].map((s) => (
                   <Star key={s} size={16} className="fill-accent" />

@@ -31,6 +31,80 @@ body {
   transform: none;
 }
 
+/* Arrival motion: hero entrance, slow backdrop zoom, destinations ticker */
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.anim-hero {
+  opacity: 0;
+  animation: rise-in 0.9s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
+}
+
+.anim-d1 { animation-delay: 0.12s; }
+.anim-d2 { animation-delay: 0.24s; }
+.anim-d3 { animation-delay: 0.36s; }
+.anim-d4 { animation-delay: 0.48s; }
+
+@keyframes ken-burns {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+
+.kenburns {
+  animation: ken-burns 24s ease-in-out infinite alternate;
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.ticker-track {
+  animation: ticker-scroll 30s linear infinite;
+}
+
+.ticker:hover .ticker-track {
+  animation-play-state: paused;
+}
+
+a.rounded-full:active,
+button.rounded-full:active,
+button.rounded-2xl:active {
+  transform: scale(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-hero,
+  .kenburns,
+  .ticker-track {
+    animation: none;
+  }
+  .anim-hero {
+    opacity: 1;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 @media print {
   header,
   footer,

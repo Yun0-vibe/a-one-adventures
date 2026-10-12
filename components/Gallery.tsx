@@ -10,6 +10,7 @@ export default function Gallery({ items }: { items: { src: string; label: string
         {items.map((g, i) => (
           <button
             key={g.label}
+            data-delay={i * 80}
             onClick={() => setOpen(i)}
             className="reveal group relative h-[220px] overflow-hidden rounded-3xl text-left md:h-[260px]"
           >
