@@ -5,20 +5,20 @@ import Footer from '@/components/Footer';
 import Reveal from '@/components/Reveal';
 
 // TODO: replace with your custom domain if you add one in Vercel
-// (e.g. https://aoneadventures.com). Used for canonical URLs, sitemap & OG tags.
+// (e.g. https://aoneadventures.com). Used for canonical URLs, sitemap and OG tags.
 export const SITE_URL = 'https://a-one-adventures.vercel.app';
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'A-One Adventures — Private Scorpio Tours from Pokhara | Muktinath, Mustang, Pathivara',
+    default: 'A-One Adventures | 4x4 Jeep Tours Across Nepal from Pokhara',
     template: '%s | A-One Adventures Pokhara',
   },
   description:
-    'Pokhara-based private Mahindra Scorpio (8-seater 4WD) tours. Muktinath Darshan, Lower & Upper Mustang, Pathivara Devi, All Nepal circuit. Owner-driver Ganesh Prasad Subedi. Book on WhatsApp +977 9846020030.',
+    'Pokhara based 8 seater 4WD jeep tours across Nepal. Muktinath Darshan, Lower and Upper Mustang, Pathivara Devi, All Nepal circuit. Owner driver Ganesh Prasad Subedi. Call +977 9846020030 to reserve.',
   keywords: [
     'Pokhara jeep rental',
-    'Scorpio rental Pokhara',
+    'jeep hire Pokhara',
     'Muktinath jeep tour',
     'Muktinath Darshan package',
     'Upper Mustang jeep tour',
@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     'Nepal tour package',
     'Jomsom jeep',
     'Kagbeni Muktinath',
-    'private 4x4 Nepal',
+    'All Nepal tour',
     'A-One Adventures',
   ],
   authors: [{ name: 'A-One Adventures' }],
@@ -39,22 +39,22 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: '/',
     siteName: 'A-One Adventures',
-    title: 'A-One Adventures — Private Scorpio Tours from Pokhara',
+    title: 'A-One Adventures | 4x4 Jeep Tours Across Nepal from Pokhara',
     description:
-      'Muktinath, Mustang, Pathivara & All Nepal by private 8-seater Scorpio 4WD. One jeep, one trusted driver. Book on WhatsApp.',
+      'Muktinath, Mustang, Pathivara, Chitwan, Lumbini and full All Nepal circuits by 8 seater 4WD. One jeep, one trusted driver.',
     images: [
       {
         url: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop',
         width: 1200,
         height: 630,
-        alt: 'Muktinath and Mustang Himalayas — A-One Adventures tours',
+        alt: 'Mustang Himalayas covered by A-One Adventures tours',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'A-One Adventures — Private Scorpio Tours from Pokhara',
-    description: 'Muktinath, Mustang, Pathivara & All Nepal by private Scorpio 4WD. Book on WhatsApp +977 9846020030.',
+    title: 'A-One Adventures | 4x4 Jeep Tours Across Nepal from Pokhara',
+    description: 'Muktinath, Mustang, Pathivara and All Nepal by 8 seater 4WD. Call +977 9846020030 to reserve.',
     images: ['https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1200&auto=format&fit=crop'],
   },
   icons: { icon: '/logo.svg', apple: '/logo.svg' },
@@ -65,10 +65,10 @@ const JSON_LD = {
   '@type': 'TravelAgency',
   name: 'A-One Adventures',
   description:
-    'Family-run private Mahindra Scorpio 4WD tours from Pokhara: Muktinath Darshan, Lower & Upper Mustang, Pathivara Devi, All Nepal circuit.',
+    'Family run 8 seater 4WD jeep tours from Pokhara across Nepal: Muktinath Darshan, Lower and Upper Mustang, Pathivara Devi, All Nepal circuit.',
   url: SITE_URL,
   telephone: '+9779846020030',
-  priceRange: 'NPR 9,000 – 85,000',
+  priceRange: 'NPR 9,000 to 85,000',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Lakeside',
@@ -78,7 +78,6 @@ const JSON_LD = {
   geo: { '@type': 'GeoCoordinates', latitude: 28.2096, longitude: 83.9856 },
   openingHours: 'Mo-Su 06:00-22:00',
   founder: { '@type': 'Person', name: 'Ganesh Prasad Subedi', telephone: '+9779846020030' },
-  sameAs: ['https://wa.me/9779846020030'],
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -98,15 +97,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main>{children}</main>
         <Footer />
-        <a
-          className="float-wa"
-          href="https://wa.me/9779846020030?text=Namaste%20A-One%20Adventures!%20I%20want%20to%20book%20a%20tour."
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Chat on WhatsApp"
-        >
-          <span style={{ fontSize: 18 }}>◉</span> WhatsApp Us
-        </a>
         <Reveal />
       </body>
     </html>
