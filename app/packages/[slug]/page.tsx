@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ChevronRight, Check, X, Backpack } from 'lucide-react';
+import { ChevronRight, Check, X, Backpack, MapPin, Moon, Clock3, MoveRight, ClipboardCheck } from 'lucide-react';
 import { PACKAGES } from '@/lib/site';
 import { SITE_URL } from '@/app/layout';
 import { DEFAULT_EXCLUDED, ELEVATION, packingFor } from '@/lib/extras';
+import { ROUTE_ROWS, DESTINATIONS, REQUIRED } from '@/lib/route-data';
 import { NE_PACKAGES, NE_EXCLUDED, NE_MOUNTAIN_PACKING, NE_STANDARD_PACKING } from '@/lib/ne-data';
 import { getLang, makeT } from '@/lib/lang';
 import Elevation from '@/components/Elevation';
@@ -91,6 +92,16 @@ export default function Detail({ params }: { params: { slug: string } }) {
             <small className="block text-[13px] font-medium text-moss">{p.priceNote}</small>
           </div>
           <p className="mt-3 max-w-[68ch] text-[16.5px] leading-relaxed text-moss">{p.summary}</p>
+          <div className="mt-5">
+            <div className="text-xs font-extrabold uppercase tracking-[0.14em] text-brand2">{t('dt.dest')}</div>
+            <div className="mt-2.5 flex flex-wrap gap-2">
+              {(DESTINATIONS[base.slug] ?? []).map((d) => (
+                <span key={d} className="inline-flex items-center gap-1.5 rounded-full bg-cream px-3.5 py-1.5 text-[13px] font-bold">
+                  <MapPin size={13} className="text-brand2" /> {d}
+                </span>
+              ))}
+            </div>
+          </div>
           <div className="no-print mt-5 flex flex-wrap gap-2.5">
             <Link href={`/contact?package=${base.slug}`} className="rounded-full bg-brand px-6 py-3.5 text-[15px] font-bold text-white hover:bg-brand2">
               {t('dt.reserve')}
@@ -149,19 +160,66 @@ export default function Detail({ params }: { params: { slug: string } }) {
             </div>
           </div>
           <div className="mt-8">
+            <h2 className="font-display text-2xl tracking-tight">{t('dt.route')}</h2>
+            <div className="mt-4 overflow-auto rounded-2xl border border-line">
+              <table className="w-full min-w-[620px] border-collapse text-[14.5px]">
+                <thead>
+                  <tr className="bg-[#F2EEE1] text-left text-xs uppercase tracking-widest text-moss">
+                    <th className="px-4 py-3">{t('dt.c1')}</th>
+                    <th className="px-4 py-3">{t('dt.c2')}</th>
+                    <th className="px-4 py-3">{t('dt.c3')}</th>
+                    <th className="px-4 py-3">{t('dt.c4')}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {(ROUTE_ROWS[base.slug] ?? []).map((r) => (
+                    <tr key={r.day + r.to} className="border-t border-line hover:bg-[#FCFAF4]">
+                      <td className="whitespace-nowrap px-4 py-3.5 font-extrabold text-brand">{r.day}</td>
+                      <td className="px-4 py-3.5">
+                        <span className="font-semibold">{r.from}</span>
+                        <span className="mx-1.5 inline-flex items-center align-middle text-brand2"><MoveRight size={15} /></span>
+                        <span className="text-moss">{r.to}</span>
+                      </td>
+                      <td className="px-4 py-3.5">
+                        <span className="inline-flex items-center gap-1.5 font-semibold"><Moon size={14} className="text-brand2" /> {r.stay}</span>
+                      </td>
+                      <td className="whitespace-nowrap px-4 py-3.5 text-moss">
+                        <span className="inline-flex items-center gap-1.5"><Clock3 size={14} /> {r.drive}</span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div className="mt-8">
             <Elevation data={ELEVATION[base.slug] ?? ELEVATION['muktinath-darshan']} title={t('dt.alt')} highest={t('dt.highest')} note={t('dt.altnote')} />
           </div>
-          <div className="mt-8 rounded-3xl border border-dashed border-ink/25 bg-[#FCFAF5] p-6 md:p-8">
-            <h2 className="flex items-center gap-2.5 font-display text-2xl tracking-tight">
-              <Backpack size={22} className="text-brand" /> {t('dt.pack')}
-            </h2>
-            <ul className="mt-4 grid gap-2.5 sm:grid-cols-2">
-              {packing.map((h) => (
-                <li key={h} className="flex items-start gap-2.5 text-[15px] text-moss">
-                  <Check size={17} className="mt-0.5 shrink-0 text-accent" /> {h}
-                </li>
-              ))}
-            </ul>
+          <div className="mt-8 grid gap-6 lg:grid-cols-2">
+            <div className="rounded-3xl bg-cream p-6 md:p-8">
+              <h2 className="flex items-center gap-2.5 font-display text-2xl tracking-tight">
+                <ClipboardCheck size={22} className="text-brand" /> {t('dt.req')}
+              </h2>
+              <ul className="mt-4 grid gap-2.5">
+                {(REQUIRED[base.slug] ?? []).map((h) => (
+                  <li key={h} className="flex items-start gap-2.5 text-[15px]">
+                    <Check size={17} className="mt-0.5 shrink-0 text-brand2" /> {h}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-3xl border border-dashed border-ink/25 bg-[#FCFAF5] p-6 md:p-8">
+              <h2 className="flex items-center gap-2.5 font-display text-2xl tracking-tight">
+                <Backpack size={22} className="text-brand" /> {t('dt.pack')}
+              </h2>
+              <ul className="mt-4 grid gap-2.5">
+                {packing.map((h) => (
+                  <li key={h} className="flex items-start gap-2.5 text-[15px] text-moss">
+                    <Check size={17} className="mt-0.5 shrink-0 text-accent" /> {h}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </div>
