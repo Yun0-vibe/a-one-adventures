@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
   Lock, LogOut, Plus, Trash2, Copy, Check, ExternalLink, Phone,
-  Home, BookOpen, Wallet, Tag, StickyNote, Link2, ClipboardCheck, Printer,
+  Home, BookOpen, Wallet, Tag, StickyNote, Link2, ClipboardCheck, Printer, PackagePlus, Send,
 } from 'lucide-react';
 import { PACKAGES, SITE } from '@/lib/site';
 import { NE_PACKAGES } from '@/lib/ne-data';
@@ -19,6 +19,41 @@ type Booking = {
   total: string; advance: string; status: 'new' | 'confirmed' | 'done';
 };
 type Expense = { id: number; label: string; amount: string; date: string };
+type Draft = {
+  id: number; title: string; days: string; nights: string; price: string;
+  priceNote: string; tag: string; summary: string; image: string;
+  highlights: string; itinerary: string; includes: string;
+};
+
+const PRESET_IMAGES = [
+  'https://images.unsplash.com/photo-1544735716-392fe2489ffa?q=80&w=1600&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=1600&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1573398643956-2b9e6ade3456?q=80&w=1600&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1585938389612-a552a28d6914?q=80&w=1600&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1558799401-1dcba79834c2?q=80&w=1600&auto=format&fit=crop',
+  'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1600&auto=format&fit=crop',
+];
+
+function draftToPkg(d: Draft) {
+  const lines = (s: string) => s.split('\n').map((x) => x.trim()).filter(Boolean);
+  return {
+    slug: d.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'custom-trip',
+    title: d.title,
+    days: d.days,
+    nights: d.nights,
+    price: d.price,
+    priceNote: d.priceNote,
+    tag: d.tag,
+    image: d.image || PRESET_IMAGES[0],
+    summary: d.summary,
+    highlights: lines(d.highlights),
+    itinerary: lines(d.itinerary).map((ln) => {
+      const [day = '', title = '', ...rest] = ln.split('::').map((x) => x.trim());
+      return { day, title, detail: rest.join('::') };
+    }),
+    includes: lines(d.includes),
+  };
+}
 
 function useLocal<T>(key: string, initial: T): [T, (v: T) => void] {
   const [val, setVal] = useState<T>(initial);
@@ -50,7 +85,7 @@ export default function AdminGate() {
   const [unlocked, setUnlocked] = useState(false);
   const [code, setCode] = useState('');
   const [error, setError] = useState(false);
-  const [tab, setTab] = useState<'home' | 'bookings' | 'expenses' | 'rates' | 'notes' | 'links'>('home');
+  const [tab, setTab] = useState<'home' | 'bookings' | 'expenses' | 'rates' | 'add' | 'notes' | 'links'>('home');
   const [tasks, setTasks] = useLocal<Task[]>('aone-admin-tasks', [
     { id: 1, text: 'Confirm upcoming trip dates on call', done: false },
     { id: 2, text: 'Service check before Mustang run', done: false },
@@ -61,6 +96,9 @@ export default function AdminGate() {
   const [newTask, setNewTask] = useState('');
   const [copied, setCopied] = useState(false);
   const [bf, setBf] = useState({ name: '', phone: '', pkg: 'muktinath-darshan', from: '', to: '', persons: '5', total: '', advance: '', status: 'new' as Booking['status'] });
+  const [drafts, setDrafts] = useLocal<Draft[]>('aone-admin-drafts', []);
+  const [df, setDf] = useState<Draft>({ id: 0, title: '', days: '', nights: '', price: '', priceNote: '', tag: '', summary: '', image: PRESET_IMAGES[0], highlights: '', itinerary: '', includes: '' });
+  const [sentNote, setSentNote] = useState<number | null>(null);
   const [ef, setEf] = useState({ label: '', amount: '', date: new Date().toISOString().slice(0, 10) });
 
   useEffect(() => {
@@ -139,6 +177,7 @@ export default function AdminGate() {
     { id: 'bookings' as const, icon: BookOpen, label: t('ad.bookings') },
     { id: 'expenses' as const, icon: Wallet, label: t('ad.expenses') },
     { id: 'rates' as const, icon: Tag, label: t('ad.rates') },
+    { id: 'add' as const, icon: PackagePlus, label: t('ad.add') },
     { id: 'notes' as const, icon: StickyNote, label: t('ad.notes') },
     { id: 'links' as const, icon: Link2, label: t('ad.links') },
   ];
@@ -165,7 +204,7 @@ export default function AdminGate() {
         </button>
       </div>
 
-      <div className="no-print mt-5 grid grid-cols-3 gap-2 md:grid-cols-6">
+      <div className="no-print mt-5 grid grid-cols-3 gap-2 md:grid-cols-7">
         {tabs.map((tb) => (
           <button
             key={tb.id}
@@ -347,6 +386,99 @@ export default function AdminGate() {
             ))}
           </div>
           <div className="mt-3 rounded-xl bg-accentsoft px-3.5 py-2.5 text-[13px] font-semibold">{t('ad.permit')}</div>
+        </div>
+      ) : null}
+
+      {tab === 'add' ? (
+        <div className="mt-5 grid items-start gap-4 lg:grid-cols-2">
+          <form
+            className="grid gap-3 rounded-3xl border border-line bg-white p-5 md:p-7"
+            onSubmit={(e) => {
+              e.preventDefault();
+              if (!df.title.trim()) return;
+              setDrafts([{ ...df, title: df.title.trim(), id: Date.now() }, ...drafts]);
+              setDf({ id: 0, title: '', days: '', nights: '', price: '', priceNote: '', tag: '', summary: '', image: PRESET_IMAGES[0], highlights: '', itinerary: '', includes: '' });
+            }}
+          >
+            <label className={labelCls}>{t('ad.pkgTitle')}<input required value={df.title} onChange={(e) => setDf({ ...df, title: e.target.value })} placeholder="e.g. Rara Lake Adventure" className={inputCls} /></label>
+            <div className="grid grid-cols-3 gap-3">
+              <label className={labelCls}>{t('es.days')}<input value={df.days} onChange={(e) => setDf({ ...df, days: e.target.value })} placeholder="4 Days" className={inputCls} /></label>
+              <label className={labelCls}>{t('ad.nights')}<input value={df.nights} onChange={(e) => setDf({ ...df, nights: e.target.value })} placeholder="3 Nights" className={inputCls} /></label>
+              <label className={labelCls}>{t('ad.tag')}<input value={df.tag} onChange={(e) => setDf({ ...df, tag: e.target.value })} placeholder="New" className={inputCls} /></label>
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <label className={labelCls}>{t('ad.price')}<input value={df.price} onChange={(e) => setDf({ ...df, price: e.target.value })} placeholder="NPR 70,000 to 90,000" className={inputCls} /></label>
+              <label className={labelCls}>{t('ad.priceNote')}<input value={df.priceNote} onChange={(e) => setDf({ ...df, priceNote: e.target.value })} placeholder="full Scorpio, fuel included" className={inputCls} /></label>
+            </div>
+            <label className={labelCls}>{t('ad.summary')}<textarea rows={2} value={df.summary} onChange={(e) => setDf({ ...df, summary: e.target.value })} className={inputCls} /></label>
+            <label className={labelCls}>{t('ad.photo')}
+              <div className="flex gap-2 overflow-auto pb-1">
+                {PRESET_IMAGES.map((src) => (
+                  <button type="button" key={src} onClick={() => setDf({ ...df, image: src })}
+                    className={`h-14 w-20 shrink-0 rounded-xl border-2 bg-cover bg-center ${df.image === src ? 'border-brand' : 'border-line'}`}
+                    style={{ backgroundImage: `url('${src}')` }} aria-label="Pick photo" />
+                ))}
+              </div>
+            </label>
+            <label className={labelCls}>{t('ad.highPh')}
+              <textarea rows={3} value={df.highlights} onChange={(e) => setDf({ ...df, highlights: e.target.value })} placeholder={t('ad.highEx')} className={inputCls} />
+            </label>
+            <label className={labelCls}>{t('ad.itiPh')}
+              <textarea rows={4} value={df.itinerary} onChange={(e) => setDf({ ...df, itinerary: e.target.value })} placeholder={t('ad.itiEx')} className={inputCls} />
+            </label>
+            <label className={labelCls}>{t('ad.incPh')}
+              <textarea rows={3} value={df.includes} onChange={(e) => setDf({ ...df, includes: e.target.value })} placeholder={t('ad.incEx')} className={inputCls} />
+            </label>
+            <button className="rounded-full bg-brand px-5 py-4 text-base font-bold text-white">+ {t('ad.saveDraft')}</button>
+          </form>
+          <div className="grid gap-4">
+            {df.title.trim() ? (
+              <div className="overflow-hidden rounded-3xl border-2 border-dashed border-brand/50 bg-white">
+                <div className="h-40 bg-cover bg-center" style={{ backgroundImage: `url('${df.image}')` }} />
+                <div className="p-5">
+                  <span className="rounded-full bg-ink px-3 py-1 text-xs font-bold text-white">{df.tag || t('ad.tag')}</span>
+                  <h3 className="mt-2 font-display text-2xl">{df.title} {df.days}</h3>
+                  <p className="m-0 mt-1 text-sm text-moss">{df.summary}</p>
+                  <div className="mt-2 font-extrabold">{df.price}</div>
+                </div>
+              </div>
+            ) : null}
+            {drafts.length === 0 && !df.title.trim() ? <p className="rounded-3xl border border-line bg-white p-6 text-moss">{t('ad.noDrafts')}</p> : null}
+            {drafts.map((d) => {
+              const pkg = draftToPkg(d);
+              return (
+                <div key={d.id} className="rounded-3xl border border-line bg-white p-5">
+                  <div className="flex items-center justify-between gap-2">
+                    <b className="text-lg">{d.title}</b>
+                    <button onClick={() => setDrafts(drafts.filter((x) => x.id !== d.id))} className="flex items-center gap-1.5 text-[13px] font-bold text-red-700">
+                      <Trash2 size={14} /> {t('ad.del')}
+                    </button>
+                  </div>
+                  <div className="no-print mt-3 flex flex-wrap gap-2">
+                    <button
+                      onClick={async () => {
+                        try {
+                          await navigator.clipboard.writeText(JSON.stringify(pkg, null, 2));
+                          setSentNote(d.id);
+                          setTimeout(() => setSentNote(null), 1500);
+                        } catch { /* ignore */ }
+                      }}
+                      className="flex items-center gap-1.5 rounded-full border border-line px-4 py-2 text-[13px] font-bold"
+                    >
+                      {sentNote === d.id ? <Check size={14} /> : <Copy size={14} />} {sentNote === d.id ? t('ad.copied') : t('ad.copyData')}
+                    </button>
+                    <a
+                      href={`mailto:${SITE.email}?subject=${encodeURIComponent(`New package: ${d.title}`)}&body=${encodeURIComponent(JSON.stringify(pkg, null, 2))}`}
+                      className="flex items-center gap-1.5 rounded-full bg-ink px-4 py-2 text-[13px] font-bold text-white"
+                    >
+                      <Send size={14} /> {t('ad.sendDev')}
+                    </a>
+                  </div>
+                </div>
+              );
+            })}
+            <p className="m-0 rounded-2xl bg-accentsoft px-4 py-3 text-[13px] font-semibold">{t('ad.draftNote')}</p>
+          </div>
         </div>
       ) : null}
 
